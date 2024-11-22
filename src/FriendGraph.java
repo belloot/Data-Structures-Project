@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 /**
  * Manages the graph of relationships between users.
  */

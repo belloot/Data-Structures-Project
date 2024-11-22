@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 /**
  * Manages all user-related operations, such as adding users, searching, and viewing friends.
  */

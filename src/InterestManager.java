@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 /**
  * Manages user interests and provides search functionality based on interests.
  */

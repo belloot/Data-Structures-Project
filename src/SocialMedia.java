@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class SocialMediaApp {
+public class SocialMedia {
     private static UserManager userManager;       // Manages users (BST)
     private static FriendGraph friendGraph;       // Manages relationships (Graph)
     private static InterestManager interestManager; // Manages interests (HashTable + ArrayList of BSTs)
