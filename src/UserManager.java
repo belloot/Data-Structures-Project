@@ -40,6 +40,14 @@ public class UserManager {
         return null;
     }
 
+    public ArrayList<User> searchUsersByInterests(String interest){
+        return null;
+    }
+
+    public User searchUserById(int id){
+        return null;
+    }
+
     /**
      * Outputs the User's profile as a formatted string.
      *
