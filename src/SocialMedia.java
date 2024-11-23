@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class SocialMedia {
     private static UserManager userManager; // Manages users (BST)
@@ -7,6 +8,7 @@ public class SocialMedia {
     private static LoginHashTable loginTable; // Manages authentication (HashTable)
     private static FileHandler fileHandler; // Handles file operations
     private static User currentUser; // Tracks the logged-in user 13e12
+    private static Scanner scanner = new Scanner(System.in);
 
     // could have two hashTables here
     // 1. hashTable that stores all users (could be stored in UserManager)
@@ -25,11 +27,10 @@ public class SocialMedia {
      * that friend
      * through the hash table, then set the BST node to have the attributes of the
      * friend we just accessed
-     * (what to do if duplicate values...?)
+     * (what to do if duplicate values...?)`1vdvsv
      */
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
 
         // Initialize components
         fileHandler = new FileHandler();
@@ -75,7 +76,7 @@ public class SocialMedia {
         String password = scanner.nextLine();
 
         if (loginTable.authenticate(username, password)) {
-            currentUser = userManager.getUserByUsername(username);
+            User currentUser = userManager.getUserByUsername(username);
             System.out.println("Login successful! Welcome, " + currentUser.getFirstName() + ".");
             userMenu(scanner);
         } else {
@@ -95,11 +96,10 @@ public class SocialMedia {
         String password = scanner.nextLine();
         System.out.print("Enter city: ");
         String city = scanner.nextLine();
+        ArrayList<Interest> InterestsrArray;
+        InterestsrArray = InterestManager.createInterestArray(scanner);
 
-        // Create new user
-        currentUser = new User(userManager.searchUsersByName(username).size() + 1, firstName, lastName, username);
-        currentUser.addInterest("Example Interest 1");
-        currentUser.addInterest("Example Interest 2");
+        User currentUser = new User();// khien update this one
 
         userManager.addUser(currentUser);
         loginTable.addUser(username, password);
@@ -118,8 +118,7 @@ public class SocialMedia {
             System.out.println("1. View My Profile");
             System.out.println("2. View My Friends");
             System.out.println("3. Make New Friends");
-            System.out.println("4. Get Friend Recommendations");
-            System.out.println("5. Logout");
+            System.out.println("4. Logout");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
             scanner.nextLine();
@@ -128,8 +127,7 @@ public class SocialMedia {
                 case 1 -> currentUser.toString();
                 case 2 -> viewFriends(scanner);
                 case 3 -> makeNewFriends(scanner);
-                case 4 -> getFriendRecommendations();
-                case 5 -> {
+                case 4 -> {
                     currentUser = null;
                     isLoggedIn = false;
                     System.out.println("You have been logged out.");
@@ -144,29 +142,49 @@ public class SocialMedia {
         System.out.println("\nView Friends:");
         System.out.println("1. View Friends Sorted by Name");
         System.out.println("2. Search by Friend Name");
-        System.out.println("3. View Friend's Full Profile");
-        System.out.println("4. Remove a Friend");
+
         System.out.print("Enter your choice: ");
         int choice = scanner.nextInt();
         scanner.nextLine();
 
         switch (choice) {
-            case 1 -> currentUser.viewFriends();
+            case 1 -> currentUser.viewFriendsAlphabetically();
             case 2 -> {
-                System.out.print("Enter friend's name: ");
-                String friendName = scanner.nextLine();
-                currentUser.searchUsersByName(friendName);
+                System.out.print("Enter friend's first name: ");
+                String friendFirstName = scanner.nextLine();
+                System.out.print("Enter friend's Last name: ");
+                String friendLastName = scanner.nextLine();
+                ArrayList<User> currentFriendList;
+                currentFriendList = currentUser.searchUsersByName(friendFirstName,friendLastName);
+                System.out.println("Choose options: \n");
+                System.out.println("1. View these friends' profiles");
+                System.out.println("2. Remove any friends\n");
+                int choice2 = scanner.nextInt();
+                scanner.nextLine();
+
+                switch(choice2){
+
+                    case 1 -> userManager.viewProfileOfFriendsInList(currentFriendList);
+                    case 2 -> {
+                        System.out.println("From the Friends(May include duplicate names) below, choose one to remove:\n");
+
+                        // khiem handles this part(print all friends in friendlist)
+
+                        System.out.println("Enter the id of the friend you want to remove:\n")
+
+                        int removeId = scanner.nextInt();
+
+                        scanner.nextLine();
+
+                        currentUser.removeFriend(removeId);
+
+                    }
+                
+                    default -> System.out.println("Invalid choice. Returning to User Menu.");
+                    
+                }
             }
-            case 3 -> {
-                System.out.print("Enter friend's name: ");
-                String friendName = scanner.nextLine();
-                System.out.println(userManager.getUserByUsername(friendName));
-            }
-            case 4 -> {
-                System.out.print("Enter friend's name to remove: ");
-                String friendName = scanner.nextLine();
-                // Logic to remove friend
-            }
+            
             default -> System.out.println("Invalid choice. Returning to User Menu.");
         }
     }

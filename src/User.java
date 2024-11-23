@@ -5,45 +5,47 @@ import java.util.ArrayList;
  * Represents an individual user with personal details, friends, and interests.
  */
 public class User implements Comparable<User> {
-	private int id;
-	private String firstName;
-	private String lastName;
-	private String userName;
-	private String password;
-	private String city;
-	private BST<User> friends;
-	private LinkedList<Interest> interests; // recommended to create an Interest class
-	// test commit
-	
-	/**
-	 * One argument constructor for User that only 
-	 * takes in the id
-	 * @param id the user id
-	 */
-	public User(int id) {
-		this.id = id;
-	}
-	
+    private int id;
+    private String firstName;
+    private String lastName;
+    private String userName;
+    private String password;
+    private String city;
+    private BST<User> friends;
+    private LinkedList<Interest> interests; // recommended to create an Interest class
+    // test commit
+
+    /**
+     * One argument constructor for User that only
+     * takes in the id
+     * 
+     * @param id the user id
+     */
+    public User(int id) {
+        this.id = id;
+    }
+
     /**
      * Constructor for User
-     * @param id The unique ID of the user.
-     * @param firstName The first name of the user.
-     * @param lastName The last name of the user.
-     * @param username The username of the user.
+     * 
+     * @param id          The unique ID of the user.
+     * @param firstName   The first name of the user.
+     * @param lastName    The last name of the user.
+     * @param username    The username of the user.
      * @param userFriends an arrayList of the user's friends' ids
-     *        (will be inserted into friends BST)
+     *                    (will be inserted into friends BST)
      */
     public User(int id, String firstName, String lastName, String username, ArrayList<Integer> userFriends,
-    		    String city, ArrayList<String> userInterests) {
-    	NameComparator nameCmp = new NameComparator();
-    	this.id = id;
-    	this.firstName = firstName;
-    	this.lastName = lastName;
-    	this.userName = username;
-    	// add friends using one argument User constructor
-    	for(int i = 0; i < userFriends.size(); i++) {
-    		friends.insert(new User(userFriends.get(i)), nameCmp);
-    	}
+            String city, ArrayList<String> userInterests) {
+        NameComparator nameCmp = new NameComparator();
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userName = username;
+        // add friends using one argument User constructor
+        for (int i = 0; i < userFriends.size(); i++) {
+            friends.insert(new User(userFriends.get(i)), nameCmp);
+        }
     }
 
     /**
@@ -78,21 +80,24 @@ public class User implements Comparable<User> {
      *
      * @param interest The interest to add.
      */
-    public void addInterest(String interest) {}
+    public void addInterest(String interest) {
+    }
 
     /**
      * Adds a friend to the user's friend list.
+     * 
      * @param friend The User object to add as a friend.
      */
     public void addFriend(User friend) {
-    	friends.insert(friend, null);
+        friends.insert(friend, null);
     }
 
     /**
      * Displays the user's friends in alphabetical order.
      */
-    public void viewFriends() {}
-    
+    public void viewFriendsAlphabetically() {
+    }
+
     /**
      * Compares this user with another user based on their first name.
      *
@@ -103,35 +108,47 @@ public class User implements Comparable<User> {
     public int compareTo(User other) {
         return 0;
     }
-    
+
+    public ArrayList<User> searchUsersByName(String firstName, String lastName) {
+
+        return null;
+    }
+
     /**
-	 * returns a consistent hashCode
-	 * for each interest by summing
-	 * the Unicode values of the interest String
-	 * Key = interest (String)
-	 * @return the hash Code
-	 */
-	@Override
+     * returns a consistent hashCode
+     * for each interest by summing
+     * the Unicode values of the interest String
+     * Key = interest (String)
+     * 
+     * @return the hash Code
+     */
+    @Override
     public int hashCode() {
         String key = userName + password;
         int sum = 0;
-        for(int i = 0; i < key.length(); i++) {
-        	sum += key.charAt(i);
+        for (int i = 0; i < key.length(); i++) {
+            sum += key.charAt(i);
         }
         return sum;
     }
-    
+
+    public void removeFriend(int id) {
+
+    }
+
     class NameComparator implements Comparator<User> {
         /**
          * Compares the two Users by first names
          * uses the String compareTo method to make the comparison
+         * 
          * @param user1 the first User
          * @param user2 the second User
          * @return The comparison.
          */
         @Override
         public int compare(User user1, User user2) {
-        	return user1.getFirstName().compareTo(user2.getFirstName());
+            return user1.getFirstName().compareTo(user2.getFirstName());
         }
     }
+
 }
