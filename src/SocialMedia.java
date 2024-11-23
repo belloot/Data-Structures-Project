@@ -12,6 +12,7 @@ public class SocialMedia {
     
     
     // TESTING (Khiem 2:44 PM)
+    // TESTING (Khiem 2:52 PM)
 
     // could have two hashTables here
     // 1. hashTable that stores all users (could be stored in UserManager)
