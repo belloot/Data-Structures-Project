@@ -9,6 +9,9 @@ public class SocialMedia {
     private static FileHandler fileHandler; // Handles file operations
     private static User currentUser; // Tracks the logged-in user 13e12
     private static Scanner scanner = new Scanner(System.in);
+    
+    
+    // TESTING (Khiem 2:44 PM)
 
     // could have two hashTables here
     // 1. hashTable that stores all users (could be stored in UserManager)
