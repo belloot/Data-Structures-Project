@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Manages the graph of relationships between users.
  */
@@ -6,14 +8,16 @@ public class FriendGraph {
     /**
      * Default constructor for FriendGraph.
      */
-    public FriendGraph() {}
+    public FriendGraph() {
+    }
 
     /**
      * Adds a user to the graph.
      *
      * @param user The user to add.
      */
-    public void addUser(User user) {}
+    public void addUser(User user) {
+    }
 
     /**
      * Checks if two users are friends.
@@ -29,10 +33,11 @@ public class FriendGraph {
     /**
      * Adds a friendship connection between two users.
      *
-     * @param user The first user.
+     * @param user   The first user.
      * @param friend The friend to add.
      */
-    public void addFriend(User user, User friend) {}
+    public void addFriend(User user, User friend) {
+    }
 
     /**
      * Generates friend recommendations for a user.
@@ -43,4 +48,5 @@ public class FriendGraph {
     public ArrayList<User> getRecommendations(User user) {
         return null;
     }
+
 }
