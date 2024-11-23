@@ -8,6 +8,7 @@ public class SocialMedia {
     private static FileHandler fileHandler;       // Handles file operations
     private static User currentUser;              // Tracks the logged-in user
     
+    //Test
     // could have two hashTables here
     // 1. hashTable that stores all users (could be stored in UserManager)
     // 2. hashTable that stores all interests (could be stored in InterestManager)
