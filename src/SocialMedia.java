@@ -6,7 +6,7 @@ public class SocialMedia {
     private static InterestManager interestManager; // Manages interests (HashTable + ArrayList of BSTs)
     private static LoginHashTable loginTable;     // Manages authentication (HashTable)
     private static FileHandler fileHandler;       // Handles file operations
-    private static User currentUser;              // Tracks the logged-in user
+    private static User currentUser;              // Tracks the logged-in user  13e12
     
     //Test
     // could have two hashTables here
