@@ -7,6 +7,21 @@ public class SocialMedia {
     private static LoginHashTable loginTable;     // Manages authentication (HashTable)
     private static FileHandler fileHandler;       // Handles file operations
     private static User currentUser;              // Tracks the logged-in user
+    
+    // could have two hashTables here
+    // 1. hashTable that stores all users (could be stored in UserManager)
+    // 2. hashTable that stores all interests (could be stored in InterestManager)
+    
+    /**
+     * STRATEGY TO READ IN USERS FROM INPUT FILE
+     * 1. When we reach a User, we add that user to the hash table using the hash method.
+     * The BST for this user will store friends with no other attributes except id.
+     * 2. When we finish reading from the file, our hash table will have all the users in it.
+     * 3. We loop through the hashTable, when we arrive at a user, we traverse through their
+     * friends BST. At each node in the BST, we get the id of that user, then access that friend
+     * through the hash table, then set the BST node to have the attributes of the friend we just accessed
+     * (what to do if duplicate values...?)
+     */
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);

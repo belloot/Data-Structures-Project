@@ -32,13 +32,14 @@ public class User implements Comparable<User> {
      * @param userFriends an arrayList of the user's friends' ids
      *        (will be inserted into friends BST)
      */
-    public User(int id, String firstName, String lastName, String username, ArrayList<Integer> userFriends
-    		    String city, ArrayList<>) {
+    public User(int id, String firstName, String lastName, String username, ArrayList<Integer> userFriends,
+    		    String city, ArrayList<String> userInterests) {
     	NameComparator nameCmp = new NameComparator();
     	this.id = id;
     	this.firstName = firstName;
     	this.lastName = lastName;
     	this.userName = username;
+    	// add friends using one argument User constructor
     	for(int i = 0; i < userFriends.size(); i++) {
     		friends.insert(new User(userFriends.get(i)), nameCmp);
     	}
@@ -100,6 +101,23 @@ public class User implements Comparable<User> {
     @Override
     public int compareTo(User other) {
         return 0;
+    }
+    
+    /**
+	 * returns a consistent hashCode
+	 * for each interest by summing
+	 * the Unicode values of the interest String
+	 * Key = interest (String)
+	 * @return the hash Code
+	 */
+	@Override
+    public int hashCode() {
+        String key = userName + password;
+        int sum = 0;
+        for(int i = 0; i < key.length(); i++) {
+        	sum += key.charAt(i);
+        }
+        return sum;
     }
     
     class NameComparator implements Comparator<User> {
