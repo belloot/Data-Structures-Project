@@ -2,6 +2,7 @@
  * Manages all user-related operations, such as adding users, searching, and viewing friends.
  */
 public class UserManager {
+	private BST<User> users;
 
     /**
      * Default constructor for UserManager.
