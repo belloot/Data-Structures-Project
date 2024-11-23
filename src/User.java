@@ -13,6 +13,7 @@ public class User implements Comparable<User> {
 	private String city;
 	private BST<User> friends;
 	private LinkedList<Interest> interests; // recommended to create an Interest class
+	// test commit
 	
 	/**
 	 * One argument constructor for User that only 
