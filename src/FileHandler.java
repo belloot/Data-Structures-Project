@@ -55,15 +55,38 @@ public class FileHandler {
                                 // Load city and interests
                                 String city = fileReader.nextLine().trim();
                                 int numInterests = Integer.parseInt(fileReader.nextInt());
-                                ArrayList<String> interests = new ArrayList<>();
+
+                                InterestManager currenInterestManager = new InterestManager();
+
+                                ArrayList<String> interestofCurrentUser = new ArrayList<>();
                                 for (int i = 0; i < numInterests; i++) {
-                                        interests.add(fileReader.nextInt());
+                                        String interest = fileReader.nextLine().trim();
+                                        Interest tempInterest = new Interest(0, interest);
+
+                                        // If the interest is not existed
+                                        if (currenInterestManager.interestTable.find(tempInterest) == -1) {
+                                                interestManager.addInterest(interest);
+                                                interestofCurrentUser.interestTable.add(interest);
+                                        }
+
+                                        interestofCurrentUser.add(interest);
                                 }
+
+                                User user = new User(id, firstName, lastName, username, password, numFriends, friends,
+                                                city, numInterests, interestofCurrentUser);
+
+                                // Connect the user with the interests
+                                for (String interest : interestofCurrentUser) {
+                                        interestManager.addUserInterest(user, interest);
+                                }
+
+                                LoginHashTable.addUser(username, password);
+
                         }
 
                         fileReader.close();
                 } else {
-                        System.out.println("File NFLPlayers.txt not found.");
+                        System.out.println("File not found.");
                 }
         }
 
@@ -79,7 +102,10 @@ public class FileHandler {
                         LoginHashTable loginTable) {
                 String fileName = "NFLPlayers.txt";
                 try (PrintWriter writer = new PrintWriter(new FileWriter(fileName))) {
-                        ArrayList<User> users = userManager.getAllUsers();
+                        // ArrayList<User> users = userManager.getAllUsers();
+
+                        // remove all the original data
+                        // put all the current data in the file
 
                         for (User user : users) {
                                 // Save user ID
