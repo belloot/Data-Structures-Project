@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class FriendGraph {
 
     private ArrayList<User> users;  // List to store users
+    private Graph friendGraph;
 
     public FriendGraph() {
         this.users = new ArrayList<>();
