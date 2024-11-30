@@ -42,14 +42,14 @@ public class UserManager {
      * @param username The username to search for.
      * @return The User object if found, otherwise null.
      */
-    public User getUserByUsername(String username, String password) {
-        return null; // I think this method will need to use LoginTable to actually retrieve the User object. 
+    public User getUserByUsername(String username, String password, LoginHashTable loginTable) {
+                     // I think this method will need to use LoginTable to actually retrieve the User object. 
         			 // LoginTable should have a method to retrieve a User object given username and password.
         			 // Also this method probably needs another argument, String password, to make this happen.
         			 // Will need to change main to accommodate for this
-        User userWanted = LoginTable.getUser(username, password); // example
-        usersByName.search(userWanted, nameCmp);
-        
+        User userWanted = loginTable.getUser(username, password); // example
+        userWanted = usersByName.search(userWanted, nameCmp);
+        return userWanted;
     }
 
     /**

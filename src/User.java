@@ -26,6 +26,11 @@ public class User {
         interests = new LinkedList<>();
     }
     
+    public User(String userName, String passWord) {
+    	this.userName = userName;
+    	this.password = passWord;
+    }
+    
     /**
      * Four argument constructor for User 
      * @param id The unique ID of the user
