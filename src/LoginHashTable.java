@@ -35,7 +35,6 @@ public class LoginHashTable {
         User user = new User(userName, passWord);
 
     	loginTable.add(user);
-        
     }
     
     /**

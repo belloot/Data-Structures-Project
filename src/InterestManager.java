@@ -3,6 +3,7 @@
  */
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Scanner;
 
 public class InterestManager {
 	
@@ -79,7 +80,7 @@ public class InterestManager {
     // if there are new interests, add to the interests arraylist
     // return arraylist of users so that user can be constructed
 
-   public ArrayList<User> createInterestArray(Scanner s) {
+   public ArrayList<Interest> createInterestArray(Scanner s) {
       return null;
   }
 }
