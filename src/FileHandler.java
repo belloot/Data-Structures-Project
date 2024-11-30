@@ -72,8 +72,8 @@ public class FileHandler {
                                         interestofCurrentUser.add(interest);
                                 }
 
-                                User user = new User(id, firstName, lastName, username, password, numFriends, friends,
-                                                city, numInterests, interestofCurrentUser);
+                                User user = new User(id, firstName, lastName, username, password,
+                                                city, interestofCurrentUser);
 
                                 // Connect the user with the interests
                                 for (String interest : interestofCurrentUser) {
@@ -101,10 +101,11 @@ public class FileHandler {
         public void saveData(UserManager userManager, FriendGraph friendGraph, InterestManager interestManager,
                         LoginHashTable loginTable) {
                 String fileName = "NFLPlayers.txt";
-                try (PrintWriter writer = new PrintWriter(new FileWriter(fileName))) {
+                try (PrintWriter writer = new PrintWriter(new FileWriter(fileName, false)) {  // remove all the original data
+                       
                         // ArrayList<User> users = userManager.getAllUsers();
 
-                        // remove all the original data
+                      
                         // put all the current data in the file
 
                         for (User user : users) {
