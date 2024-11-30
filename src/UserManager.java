@@ -79,6 +79,11 @@ public class UserManager {
 		 // Will implement this method
         return usersIndexedById.get(id);
     }
+    
+    // Return an ArrayList of Users ordered by ID
+    public ArrayList<User> getAllUsers() {
+    	return this.usersIndexedById;
+    }
 
     /**
      * Outputs the User's profile as a formatted string.

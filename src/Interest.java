@@ -17,6 +17,10 @@ public class Interest {
 		this.interest = interest;
 	}
 	
+	public Interest(int id) {
+		this.id = id;
+	}
+	
 	/**
 	 * Get the id of the interest
 	 * @return the id of the Interest object
@@ -49,4 +53,23 @@ public class Interest {
         }
         return sum;
     }
+	
+    /**
+     * Compares the if Interests are equal
+     * 
+     * @param obj
+     * @return boolean
+     */
+	@Override
+	public boolean equals(Object obj) {
+		if(this == obj) {
+			return true;
+		}
+		if(!(obj instanceof Interest)) {
+			return false;
+		}
+		Interest otherInterest = (Interest) obj;
+		return this.interest.equals(otherInterest.interest);
+	}
+	
 }

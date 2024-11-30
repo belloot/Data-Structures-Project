@@ -1,4 +1,7 @@
 import java.util.Comparator;
+
+import LinkedList.Node;
+
 import java.util.ArrayList;
 
 /**
@@ -11,7 +14,7 @@ public class User {
     private String userName;
     private String password;
     private String city;
-    private BST<User> friends;
+    private BST<User> friendsByName;
     private LinkedList<Interest> interests; // recommended to create an Interest class
 
     /**
@@ -22,7 +25,7 @@ public class User {
      */
     public User(int id) {
         this.id = id;
-        friends = new BST<>();
+        friendsByName = new BST<>();
         interests = new LinkedList<>();
     }
     
@@ -45,7 +48,7 @@ public class User {
     	this.userName = username;
     	this.password = password;
     	this.city = city;
-    	friends = new BST<>();
+    	friendsByName = new BST<>();
         interests = new LinkedList<>();
     }
     
@@ -66,14 +69,14 @@ public class User {
     	this.userName = username;
     	this.password = password;
     	this.city = city;
-    	friends = new BST<>();
+    	friendsByName = new BST<>();
     	for(int i = 0; i < interestsArray.size(); i++) {
     		addInterest(interestsArray.get(i));
     	}
     }
 
     /**
-     * Constructor for User (don't worry about this one for now)
+     * Full User constructor
      * 
      * @param id          The unique ID of the user.
      * @param firstName   The first name of the user.
@@ -82,18 +85,21 @@ public class User {
      * @param userFriends an arrayList of the user's friends' ids
      *                    (will be inserted into friends BST)
      */
-    public User(int id, String firstName, String lastName, String username, String password, ArrayList<Integer> userFriends,
-            String city, ArrayList<String> userInterests) {
+    public User(int id, String firstName, String lastName, String username, String password, ArrayList<Integer> friendsIds,
+            String city, ArrayList<Interest> userInterests) {
         FirstNameComparator nameCmp = new FirstNameComparator();
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = username;
         this.password = password;
-        // add friends using one argument User constructor
-        for (int i = 0; i < userFriends.size(); i++) {
-            friends.insert(new User(userFriends.get(i)), nameCmp);
+        
+        // start filling in user's interests
+        for(int i = 0; i < userInterests.size(); i++) {
+        	interests.addLast(userInterests.get(i));
         }
+        
+        
         // This constructor is still in progress, may not even need it depending on how loadData is written
     }
 
@@ -153,7 +159,7 @@ public class User {
      * @return how many friends the user has
      */
     public int getNumFriends() {
-    	return friends.getSize();
+    	return friendsByName.getSize();
     }
     
     public ArrayList<Interest> getInterestsList() {
@@ -181,12 +187,15 @@ public class User {
      * @param friend The User object to add as a friend.
      */
     public void addFriend(User friend) {
-        friends.insert(friend, null);
+    	FirstNameComparator nameCmp = new FirstNameComparator();
+        friendsByName.insert(friend, nameCmp);
     }
     
     // remove a friend
     public void removeFriend(int id, UserManager userManager) {
-    	
+    	FirstNameComparator nameCmp = new FirstNameComparator();
+    	User friendToRemove = userManager.searchUserById(id);
+    	friendsByName.removeDuplicate(friendToRemove, nameCmp);
     }
 
     /**
@@ -195,7 +204,7 @@ public class User {
     public void viewFriendsAlphabetically() {
     	System.out.println("Viewing friends alphabetically");
     	System.out.println("Format is (ID). (First name) + (Last name)\n");
-    	System.out.print(friends.inOrderString());
+    	System.out.print(friendsByName.inOrderString());
     }
 
     /**
@@ -205,7 +214,7 @@ public class User {
      * @return An integer result of the comparison.
      */
     public boolean hasSameName(User other) {
-        if(firstName.equals(other.getFirstName())) {
+        if(firstName.equals(other.getFirstName()) && lastName.equals(other.getLastName())) {
         	return true;
         } else {
         	return false;
@@ -222,6 +231,7 @@ public class User {
      * @param other the other user to compare with
      * @return if they could be potential friends
      */
+    // This method should be written in FriendGraph
     public boolean canBePotentialFriends(User other){
     	// return false if they are not at the same city
     	if(!city.equals(other.getCity())){
@@ -251,7 +261,7 @@ public class User {
     	return true;
     }
     
-    // search friends by name and returns an ArrayList of friends having that name
+    // search FRIENDS by name and returns an ArrayList of friends having that name
     public ArrayList<User> searchUsersByName(String firstName, String lastName) {
     	ArrayList<User> 
     }
@@ -283,5 +293,57 @@ public class User {
             sum += key.charAt(i);
         }
         return sum;
+    }
+    
+    /**
+     * Determines whether the given Object is
+     * another User, containing
+     * the same data in the same order
+     * @param obj another Object
+     * @return whether there is equality
+     */
+    @SuppressWarnings("unchecked") //good practice to remove warning here
+    @Override public boolean equals(Object obj) {
+        if(obj == this) {
+        	return true;
+        } else if (!(obj instanceof User)) {
+        	return false;
+        } else {
+        	User user = (User) obj;
+        	if(user.getId() != this.id) {
+        		return false;
+        	}
+        	return true;
+        }
+    }
+    
+    class FirstNameComparator implements Comparator<User> {
+        /**
+         * Compares the two Users by first names
+         * uses the String compareTo method to make the comparison
+         * 
+         * @param user1 the first User
+         * @param user2 the second User
+         * @return The comparison.
+         */
+        @Override
+        public int compare(User user1, User user2) {
+            return user1.getFirstName().compareTo(user2.getFirstName());
+        }
+    }
+    
+    class IdComparator implements Comparator<User> {
+    	/**
+         * Compares the two Users by id
+         * uses the Integer compare method to make the comparison
+         * 
+         * @param user1 the first User
+         * @param user2 the second User
+         * @return The comparison.
+         */
+        @Override
+        public int compare(User user1, User user2) {
+            return Integer.compare(user1.getId(), user2.getId());
+        }
     }
 }

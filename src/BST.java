@@ -3,6 +3,7 @@
  * @author Khiem Vu
  * CIS 22C Lab 12
  */
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.NoSuchElementException;
 
@@ -419,6 +420,58 @@ public class BST<T> {
         	preOrderString(node.left, preOrder);
         	preOrderString(node.right, preOrder);
         }
+    }
+    
+    // to remove duplicate from BST
+    public void removeDuplicate(T itemToRemove, Comparator<T> cmp) {
+    	root = removeDuplicate(itemToRemove, root, cmp);
+    }
+    
+    private Node removeDuplicate(T itemToRemove, Node node, Comparator<T> cmp) {
+        if(node == null) {
+        	return node;
+        } else if(cmp.compare(itemToRemove, node.data) < 0) {
+        	node.left = remove(itemToRemove, node.left, cmp);
+        } else if(cmp.compare(itemToRemove, node.data) > 0) {
+        	node.right = remove(itemToRemove, node.right, cmp);
+        } else {
+        	if(node.data.equals(itemToRemove)) {
+        		if(node.left == null && node.right == null) {
+            		node = null;
+            	} else if(node.left != null && node.right == null) {
+            		node = node.left;
+            	} else if(node.left == null && node.right != null) {
+            		node = node.right;
+            	} else {
+            		T min = findMin(node.right);
+            		node.data = min;
+            		node.right = remove(min, node.right, cmp);
+            	}
+        	}
+        }
+        return node;
+    }
+    
+    /////Kai's edit
+    /**
+     * In order traversal to collect users for ArrayList
+     */
+    public void inOrderTraversal(ArrayList<T> list) {
+    	inOrderTraversal(root, list);
+    }
+    
+    /////Kai's edit
+    /**
+     * In order traversal to collect users for ArrayList
+     */
+    private void inOrderTraversal(Node node, ArrayList<T> list) {
+    	if(node == null) {
+    		return;
+    	} else {
+    		inOrderTraversal(node.left, list);
+    		list.add(node.data);
+    		inOrderTraversal(node.right, list);
+    	}
     }
 
     /**
