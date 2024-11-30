@@ -103,7 +103,7 @@ public class SocialMedia {
         ArrayList<Interest> InterestsrArray;
         InterestsrArray = InterestManager.createInterestArray(scanner);
 
-        User currentUser = new User();// khien update this one
+        User currentUser = new User(userManager.getNumUsers() + 1, firstName, lastName, username, password, city, InterestsrArray);// khien update this one
 
         userManager.addUser(currentUser);
         loginTable.addUser(username, password);

@@ -13,7 +13,6 @@ public class User {
     private String city;
     private BST<User> friends;
     private LinkedList<Interest> interests; // recommended to create an Interest class
-    // test commit
 
     /**
      * One argument constructor for User that only
@@ -23,10 +22,53 @@ public class User {
      */
     public User(int id) {
         this.id = id;
+        friends = new BST<>();
+        interests = new LinkedList<>();
+    }
+    
+    /**
+     * Four argument constructor for User 
+     * @param id The unique ID of the user
+     * @param firstName the first name of the user
+     * @param lastName the last name of the user
+     * @param username the username of the user
+     */
+    public User(int id, String firstName, String lastName, String username, String password, String city) {
+    	this.id = id;
+    	this.firstName = firstName;
+    	this.lastName = lastName;
+    	this.userName = username;
+    	this.password = password;
+    	this.city = city;
+    	friends = new BST<>();
+        interests = new LinkedList<>();
+    }
+    
+    /**
+     * Seven argument constructor for User
+     * @param id The unique ID of the user
+     * @param firstName
+     * @param lastName
+     * @param username
+     * @param password
+     * @param city
+     * @param interestsArray ArrayList storing Interest objects
+     */
+    public User(int id, String firstName, String lastName, String username, String password, String city, ArrayList<Interest> interestsArray) {
+    	this.id = id;
+    	this.firstName = firstName;
+    	this.lastName = lastName;
+    	this.userName = username;
+    	this.password = password;
+    	this.city = city;
+    	friends = new BST<>();
+    	for(int i = 0; i < interestsArray.size(); i++) {
+    		addInterest(interestsArray.get(i));
+    	}
     }
 
     /**
-     * Constructor for User
+     * Constructor for User (don't worry about this one for now)
      * 
      * @param id          The unique ID of the user.
      * @param firstName   The first name of the user.
@@ -35,17 +77,19 @@ public class User {
      * @param userFriends an arrayList of the user's friends' ids
      *                    (will be inserted into friends BST)
      */
-    public User(int id, String firstName, String lastName, String username, ArrayList<Integer> userFriends,
+    public User(int id, String firstName, String lastName, String username, String password, ArrayList<Integer> userFriends,
             String city, ArrayList<String> userInterests) {
         FirstNameComparator nameCmp = new FirstNameComparator();
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = username;
+        this.password = password;
         // add friends using one argument User constructor
         for (int i = 0; i < userFriends.size(); i++) {
             friends.insert(new User(userFriends.get(i)), nameCmp);
         }
+        // This constructor is still in progress, may not even need it depending on how loadData is written
     }
 
     /**
@@ -99,6 +143,14 @@ public class User {
     	return password;
     }
     
+    /**
+     * Retrieves the number of friends this user has
+     * @return how many friends the user has
+     */
+    public int getNumFriends() {
+    	return friends.getSize();
+    }
+    
     public ArrayList<Interest> getInterestsList() {
     	ArrayList<Interest> interestsList = new ArrayList<Interest>(interests.getLength());
     	interests.positionIterator();
@@ -128,7 +180,7 @@ public class User {
     }
     
     // remove a friend
-    public void removeFriend(int id) {
+    public void removeFriend(int id, UserManager userManager) {
     	
     }
 
@@ -227,20 +279,4 @@ public class User {
         }
         return sum;
     }
-
-    class FirstNameComparator implements Comparator<User> {
-        /**
-         * Compares the two Users by first names
-         * uses the String compareTo method to make the comparison
-         * 
-         * @param user1 the first User
-         * @param user2 the second User
-         * @return The comparison.
-         */
-        @Override
-        public int compare(User user1, User user2) {
-            return user1.getFirstName().compareTo(user2.getFirstName());
-        }
-    }
-
 }
