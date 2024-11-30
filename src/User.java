@@ -24,6 +24,31 @@ public class User implements Comparable<User> {
     public User(int id) {
         this.id = id;
     }
+    
+    /////Kai's edit
+    /**
+     * Constructor to be used to create temp user for login authentication
+     * 2 arguments constructor for User that
+     * takes in the username, password
+     * 
+     * @param username the username of the user
+     * @param password the password of the user
+     */
+    public User(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
+    }
+    
+    /////Kai's edit
+    /**
+     * default constructor for User
+     * 
+     * @param id the user id
+     */
+    public User() {
+    	this.firstName = "tempUser";
+    	this.lastName = "tempUser"; 	
+    }
 
     /**
      * Constructor for User
@@ -72,7 +97,16 @@ public class User implements Comparable<User> {
      * @return The username of the user.
      */
     public String getUsername() {
-        return null;
+        return userName; //Kais edit
+    }
+    
+    /**
+     * Retrieves the user's password.
+     *
+     * @return The password of the user.
+     */
+    public String getPassword() {
+    	return password; //Kais edit
     }
 
     /**
@@ -130,6 +164,22 @@ public class User implements Comparable<User> {
             sum += key.charAt(i);
         }
         return sum;
+    }
+    
+    /////Kai's edit
+    /**
+     * Compares the if Users are equal
+     * by name or password
+     * 
+     * @param obj
+     * @return boolean
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof User)) return false;
+        User otherUser = (User) obj;
+        return this.userName.equals(otherUser.userName) && this.password.equals(otherUser.password);
     }
 
     public void removeFriend(int id) {

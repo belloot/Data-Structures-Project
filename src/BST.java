@@ -5,6 +5,7 @@
  */
 import java.util.Comparator;
 import java.util.NoSuchElementException;
+import java.util.ArrayList;
 
 public class BST<T> {
     private class Node {
@@ -446,6 +447,29 @@ public class BST<T> {
         	inOrderString(node.right, inOrder);
         }
     }
+    
+    /////Kai's edit
+    /**
+     * Inorder traversal to collect users for ArrayList
+     */
+    public void inOrderTraversal(ArrayList<T> list) {
+    	inOrderTraversal(root, list);
+    }
+    
+    /////Kai's edit
+    /**
+     * Inorder traversal to collect users for ArrayList
+     */
+    private void inOrderTraversal(Node node, ArrayList<T> list) {
+    	if(node == null) {
+    		return;
+    	} else {
+    		inOrderTraversal(node.left, list);
+    		list.add(node.data);
+    		inOrderTraversal(node.right, list);
+    	}
+    }
+    
 
     /**
      * Returns a String containing the data in post order.
