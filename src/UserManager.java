@@ -37,7 +37,7 @@ public class UserManager {
      * @param name The name to search for.
      * @return A list of User objects with the specified name.
      */
-    public ArrayList<User> searchUsersByName(String name) {
+    public ArrayList<User> searchUsersByName(String firstName, String lastName) {
         return null;
     }
 
@@ -51,15 +51,15 @@ public class UserManager {
 
     /**
      * Outputs the User's profile as a formatted string.
-     *
+     * I don't think we need this method as User.java has a toString() that does this (Khiem 11/29)
      * @return A string representation of the User's profile.
      */
     @Override
-    public String toString() {
+    public String toString() { 
         return null;
     }
 
     public void viewProfileOfFriendsInList(ArrayList<User> list) {
-
+    	
     }
 }
