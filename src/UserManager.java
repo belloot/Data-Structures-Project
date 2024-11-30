@@ -73,11 +73,11 @@ public class UserManager {
     }
 
     public User searchUserById(int id){
-        return null; // Need an ArrayList<User> where each index in the ArrayList
-        			 // corresponds to a user ID. This ArrayList will be used to
-		 		     // retrieve the correct User object. (I've added it at the top).
-        			 // Will implement this method
-        
+         // Need an ArrayList<User> where each index in the ArrayList
+		 // corresponds to a user ID. This ArrayList will be used to
+	     // retrieve the correct User object. (I've added it at the top).
+		 // Will implement this method
+        return usersIndexedById.get(id);
     }
 
     /**
