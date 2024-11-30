@@ -9,7 +9,7 @@ public class LoginHashTable {
      * Default constructor for LoginHashTable.
      */
     public LoginHashTable() {
-    	loginTable = new HashTable<>(10); //Size 10, suitable size? 
+    	loginTable = new HashTable<>(15); //Size 10, suitable size? 
     }
 
     /**
@@ -30,8 +30,12 @@ public class LoginHashTable {
      * @param User, contains name and password
      */
     //public void addUser(String username, String password)
-    public void addUser(User user) {
+    public void addUser(String userName, String passWord ) {
+
+        User user = new User(userName, passWord);
+
     	loginTable.add(user);
+        
     }
     
     /**

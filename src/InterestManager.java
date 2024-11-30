@@ -9,9 +9,6 @@ public class InterestManager {
 	private HashTable<Interest> interestTable; //Stores Interest objects
 	private ArrayList<BST<User>> usersByInterest; //Indexed by interest id
 	
-	//HashTable of ArrayList of LinkedList of Interest object
-	//private HashTable<ArrayList<LinkedList<Interest>>>();
-
     /**
      * Default constructor for InterestManager.
      */
@@ -46,8 +43,15 @@ public class InterestManager {
     		actualInterest = interestTable.get(tempInterest); //after adding, get the interest
     	}
     	BST<User> userBST = usersByInterest.get(actualInterest.getId()); //get the BST that contains users who have this interest
+
+
+
     	User tempUser = new User(); //create a comparator that will be used to keep the BST ordering when inserting the user
     	Comparator<User> userComparator = tempUser.new NameComparator(); 
+
+        // May have problems
+
+
     	userBST.insert(user, userComparator); //add user to the BST of users with same interest
     }
     
@@ -68,19 +72,14 @@ public class InterestManager {
     	userBST.inOrderTraversal(usersList);
     	return usersList;
     }
-    
 
-    /**
-     * Searches for users who share a specific interest.
-     *
-     * @param interest The interest to search for.
-     * @return A list of User objects who share the specified interest.
-     */
-//    public ArrayList<User> searchUsersByInterest(String interest) {
-//        return null;
-//    }
-//
-//    public ArrayList<User> createInterestArray(Scanner s) {
-//        return null;
-//    }
+    // prompt the user to enter all of their interests
+    // handle all the interests:
+    // putting all users with same existing interest in the correct Bst
+    // if there are new interests, add to the interests arraylist
+    // return arraylist of users so that user can be constructed
+
+   public ArrayList<User> createInterestArray(Scanner s) {
+      return null;
+  }
 }
