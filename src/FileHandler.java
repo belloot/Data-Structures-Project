@@ -1,4 +1,7 @@
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -6,6 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import javax.sound.sampled.spi.AudioFileReader;
 
 /**
  * Handles file operations to load and save user data, friends, and interests.
@@ -29,6 +33,8 @@ public class FileHandler {
          */
         public void loadData(UserManager userManager, FriendGraph friendGraph, InterestManager interestManager,
                         LoginHashTable loginTable) {
+ 
+                IdComparator IdCmp = new IdComparator();
                 File file = new File("NFLPlayers.txt"); // Adjust the file path if needed
                 if (file.exists()) {
                         Scanner fileReader = new Scanner(file);
@@ -45,12 +51,9 @@ public class FileHandler {
                                 String username = fileReader.nextLine().trim();
                                 String password = fileReader.nextLine().trim();
 
-                                // Load friends
-                                int numFriends = Integer.parseInt(fileReader.nextInt());
-                                ArrayList<Integer> friends = new ArrayList<>();
-                                for (int i = 0; i < numFriends; i++) {
-                                        friends.add(Integer.parseInt(fileReader.nextInt()));
-                                }
+                               
+
+
 
                                 // Load city and interests
                                 String city = fileReader.nextLine().trim();
@@ -58,7 +61,7 @@ public class FileHandler {
 
                                 InterestManager currenInterestManager = new InterestManager();
 
-                                ArrayList<String> interestofCurrentUser = new ArrayList<>();
+                                ArrayList<Interest> interestofCurrentUser = new ArrayList<>();
                                 for (int i = 0; i < numInterests; i++) {
                                         String interest = fileReader.nextLine().trim();
                                         Interest tempInterest = new Interest(0, interest);
@@ -78,9 +81,39 @@ public class FileHandler {
                                 // Connect the user with the interests
                                 for (String interest : interestofCurrentUser) {
                                         interestManager.addUserInterest(user, interest);
+
                                 }
 
-                                LoginHashTable.addUser(username, password);
+
+                                loginTable.addUser(username, password);
+
+                                 // Load friends
+                                 int numFriends = fileReader.nextInt();
+                                 fileReader.nextLine();
+                                 ArrayList<User> friends = new ArrayList<>();
+                                 for (int i = 0; i < numFriends; i++) {
+                                         friends.add(userManager.searchUserById(fileReader.nextInt()));
+                                         fileReader.nextLine();
+                                 }
+
+
+                                 for(User friend : friends){
+
+                                        user.getFriendBST().insert(friend,IdCmp);
+                                        
+                                        if(!(areFriends(user,friend))){
+
+                                                friendGraph.addFriend(user,friend);
+
+                                        }
+
+                                 }
+
+
+                                 
+                                 
+
+                                 
 
                         }
 
@@ -142,5 +175,20 @@ public class FileHandler {
                         System.err.println("Error writing to file.");
                 }
 
+        }
+
+        class IdComparator implements Comparator<User> {
+                /**
+             * Compares the two Users by id
+             * uses the Integer compare method to make the comparison
+             * 
+             * @param user1 the first User
+             * @param user2 the second User
+             * @return The comparison.
+             */
+            @Override
+            public int compare(User user1, User user2) {
+                return Integer.compare(user1.getId(), user2.getId());
+            }
         }
 }
