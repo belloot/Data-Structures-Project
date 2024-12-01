@@ -101,7 +101,21 @@ public class User {
         // This constructor is still in progress, may not even need it depending on how loadData is written
     }
 
-    /**
+    public User(Integer id, String firstName, String lastName, String userName, String passWord) {
+    	
+    	this.id = id;
+    	
+        this.firstName = firstName;
+        
+        this.lastName = lastName;
+        
+        this.userName = userName;
+        
+        this.password = passWord;
+		
+	}
+
+	/**
      * Retrieves the user's ID.
      *
      * @return The unique ID of the user.
@@ -152,6 +166,10 @@ public class User {
     	return password;
     }
     
+    public BST<User> getFriendsBST() {
+    	return this.friendsByName;
+    }
+    
     /**
      * Retrieves the number of friends this user has
      * @return how many friends the user has
@@ -178,6 +196,11 @@ public class User {
      */
     public void addInterest(Interest interest) {
     	interests.addLast(interest);
+    }
+    
+    public void updateCity(String city) {
+    	
+    	this.city = city;
     }
 
     /**

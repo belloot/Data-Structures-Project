@@ -11,20 +11,26 @@ import java.util.ArrayList;
  */
 public class FriendGraph {
 
-    private Graph friendGraph;
+    public Graph friendGraph;
 
-    public FriendGraph(UserManager userManager) {
-        friendGraph = new Graph(userManager.getNumUsers() + 100);
+    public FriendGraph(UserManager userManager, Integer numCurrentUsers) {
+        friendGraph = new Graph(numCurrentUsers);
     }
-
+    
+    
+    // return the network of friends
+ 	public Graph getFriendGraph() {
+ 		return this.friendGraph;
+ 	}
+ 	
     /**
      * Adds a friendship connection between two users.
      *
      * @param user   The first user.
      * @param friend The friend to add.
      */
-    public void addFriend(User user, User friend) {
-        friendGraph.addUndirectedEdge(user.getId(), friend.getId());
+    public void addFriend(Integer id, Integer friendsId) {
+        friendGraph.addUndirectedEdge(id, friendsId);
     }
     
     /**

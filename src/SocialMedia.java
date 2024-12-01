@@ -9,6 +9,7 @@ public class SocialMedia {
     private static FileHandler fileHandler; // Handles file operations
     private static User currentUser; // Tracks the logged-in user 13e12
     private static Scanner scanner = new Scanner(System.in);
+    public static int numCurrentUsers = 0;
     
     
     // TESTING (Khiem 2:44 PM)
@@ -44,7 +45,7 @@ public class SocialMedia {
         loginTable = new LoginHashTable();
 
         // Load data from the file
-        fileHandler.loadData(userManager, friendGraph, interestManager, loginTable);
+        fileHandler.loadData(userManager, friendGraph, interestManager, loginTable, numCurrentUsers);
 
         System.out.println("Welcome to the Social Media App!");
         boolean isRunning = true;
@@ -110,6 +111,7 @@ public class SocialMedia {
         friendGraph.addUser(currentUser);
 
         System.out.println("Account created successfully! You are now logged in.");
+        numCurrentUsers++;
         userMenu(scanner);
     }
 
