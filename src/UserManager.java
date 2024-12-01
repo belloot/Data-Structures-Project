@@ -8,7 +8,7 @@ import java.util.Comparator;
 public class UserManager {
 	private BST<User> usersByName;
 	private ArrayList<User> usersIndexedById;
-	FirstNameComparator nameCmp = new FirstNameComparator();
+	FullNameComparator fullNameCmp = new FullNameComparator();
 
     /**
      * Default constructor for UserManager.
@@ -24,7 +24,7 @@ public class UserManager {
      * @param user The User object to add.
      */
     public void addUser(User user) {
-    	usersByName.insert(user, nameCmp);
+    	usersByName.insert(user, fullNameCmp);
     	usersIndexedById.add(user);
     }
     
@@ -48,7 +48,7 @@ public class UserManager {
         			 // Also this method probably needs another argument, String password, to make this happen.
         			 // Will need to change main to accommodate for this
         User userWanted = loginTable.getUser(username, password); // example
-        userWanted = usersByName.search(userWanted, nameCmp);
+        userWanted = usersByName.search(userWanted, fullNameCmp);
         return userWanted;
     }
 
@@ -63,13 +63,14 @@ public class UserManager {
         			 // Also I need to add a BST method to be able to search 
                      // for and return an ArrayList of Users
     }
-
+    
+    // This method has been implemented inside InterestManager
     public ArrayList<User> searchUsersByInterests(String interest){
-        return null; // Need an ArrayList<User> where each index in the ArrayList
+                     // Need an ArrayList<User> where each index in the ArrayList
                      // corresponds to an Interest ID. Inside this index location will have
         			 // a BST of users who share this specific Interest ID. 
         			 // This ArrayList will be used to retrieve the correct User object
-        		     // Maybe implement this in InterestManager 
+        		     // Update: Kai has this method in InterestManager
     }
 
     public User searchUserById(int id){
@@ -94,12 +95,16 @@ public class UserManager {
     public String toString() { 
         return null;
     }
-
+    
+    // print out all the profiles of all Users in this list
     public void viewProfileOfFriendsInList(ArrayList<User> list) {
-    	
+    	System.out.println("Viewing these friends' profiles: ");
+    	for(int i = 0; i < list.size(); i++) {
+    		list.get(i).toString();
+    	}
     }
     
-    class FirstNameComparator implements Comparator<User> {
+    class FullNameComparator implements Comparator<User> {
         /**
          * Compares the two Users by first names
          * uses the String compareTo method to make the comparison
@@ -110,7 +115,9 @@ public class UserManager {
          */
         @Override
         public int compare(User user1, User user2) {
-            return user1.getFirstName().compareTo(user2.getFirstName());
+        	String user1FullName = user1.getFirstName() + user1.getLastName();
+        	String user2FullName = user2.getFirstName() + user2.getLastName();
+            return user1FullName.compareTo(user2FullName);
         }
     }
 }

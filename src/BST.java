@@ -422,7 +422,7 @@ public class BST<T> {
         }
     }
     
-    // to remove duplicate from BST
+    // to remove a User from BST (even if the BST has a duplicate)
     public void removeDuplicate(T itemToRemove, Comparator<T> cmp) {
     	root = removeDuplicate(itemToRemove, root, cmp);
     }
@@ -471,6 +471,27 @@ public class BST<T> {
     		inOrderTraversal(node.left, list);
     		list.add(node.data);
     		inOrderTraversal(node.right, list);
+    	}
+    }
+    
+    // Khiem's edit
+    /**
+     * In order traversal to collect users with that full name for ArrayList (wrapper)
+     */
+    public void collectUsersWithFullName(ArrayList<T> list) {
+    	collectUsersWithFullName(root, list);
+    }
+    
+    // Khiem's edit
+    /**
+     * In order traversal to collect users with that full name for ArrayList (helper)
+     */
+    public void collectUsersWithFullName(Node node, ArrayList<T> list) {
+    	if(node == null) {
+    		return;
+    	} else {
+    		collectUsersWithFullName(node.left, list);
+    		if(node.data)
     	}
     }
 

@@ -174,13 +174,13 @@ public class SocialMedia {
 
                         // khiem handles this part(print all friends in friendlist)
 
-                        System.out.println("Enter the id of the friend you want to remove:\n")
+                        System.out.println("Enter the id of the friend you want to remove:\n");
 
                         int removeId = scanner.nextInt();
 
                         scanner.nextLine();
 
-                        currentUser.removeFriend(removeId);
+                        currentUser.removeFriend(removeId, userManager);
 
                     }
                 

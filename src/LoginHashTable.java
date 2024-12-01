@@ -9,7 +9,7 @@ public class LoginHashTable {
      * Default constructor for LoginHashTable.
      */
     public LoginHashTable() {
-    	loginTable = new HashTable<>(15); //Size 10, suitable size? 
+    	loginTable = new HashTable<>(15); //Size 10, suitable size? Might need more for when we create new account
     }
 
     /**

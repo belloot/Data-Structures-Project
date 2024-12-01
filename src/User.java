@@ -1,7 +1,5 @@
 import java.util.Comparator;
 
-import LinkedList.Node;
-
 import java.util.ArrayList;
 
 /**
@@ -87,7 +85,7 @@ public class User {
      */
     public User(int id, String firstName, String lastName, String username, String password, ArrayList<Integer> friendsIds,
             String city, ArrayList<Interest> userInterests) {
-        FirstNameComparator nameCmp = new FirstNameComparator();
+        FullNameComparator nameCmp = new FullNameComparator();
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -162,6 +160,7 @@ public class User {
     	return friendsByName.getSize();
     }
     
+    // might not need this method 
     public ArrayList<Interest> getInterestsList() {
     	ArrayList<Interest> interestsList = new ArrayList<Interest>(interests.getLength());
     	interests.positionIterator();
@@ -187,13 +186,13 @@ public class User {
      * @param friend The User object to add as a friend.
      */
     public void addFriend(User friend) {
-    	FirstNameComparator nameCmp = new FirstNameComparator();
+    	FullNameComparator nameCmp = new FullNameComparator();
         friendsByName.insert(friend, nameCmp);
     }
     
     // remove a friend
     public void removeFriend(int id, UserManager userManager) {
-    	FirstNameComparator nameCmp = new FirstNameComparator();
+    	FullNameComparator nameCmp = new FullNameComparator();
     	User friendToRemove = userManager.searchUserById(id);
     	friendsByName.removeDuplicate(friendToRemove, nameCmp);
     }
@@ -262,8 +261,14 @@ public class User {
     }
     
     // search FRIENDS by name and returns an ArrayList of friends having that name
+    // this is the method where we need the BST search to return an ArrayList
+    // assuming that our friends BST doesn't have any duplicate names, do we need 
+    // this method to return an ArrayList? There is a similar method in UserManager
+    // but I think that is different
     public ArrayList<User> searchUsersByName(String firstName, String lastName) {
-    	ArrayList<User> 
+    	ArrayList<User> friendsWithName = new ArrayList<User>();
+    	// need to 
+    	return friendsWithName;
     }
     
     /**
@@ -273,7 +278,8 @@ public class User {
     @Override
     public String toString() {
     	StringBuilder result = new StringBuilder();
-    	result.append("" + id + ". " + firstName + " " + lastName + "\n");
+    	result.append("" + id + ". " + firstName + " " + lastName + "\n" +
+    			"Interests:\n" + interests.numberedListString());
     	return result.toString() + "\n";
     }
 
@@ -298,7 +304,7 @@ public class User {
     /**
      * Determines whether the given Object is
      * another User, containing
-     * the same data in the same order
+     * the same user id
      * @param obj another Object
      * @return whether there is equality
      */
@@ -317,7 +323,7 @@ public class User {
         }
     }
     
-    class FirstNameComparator implements Comparator<User> {
+    class FullNameComparator implements Comparator<User> {
         /**
          * Compares the two Users by first names
          * uses the String compareTo method to make the comparison
@@ -328,10 +334,13 @@ public class User {
          */
         @Override
         public int compare(User user1, User user2) {
-            return user1.getFirstName().compareTo(user2.getFirstName());
+        	String user1FullName = user1.getFirstName() + user1.getLastName();
+        	String user2FullName = user2.getFirstName() + user2.getLastName();
+            return user1FullName.compareTo(user2FullName);
         }
     }
     
+    // in case we need it
     class IdComparator implements Comparator<User> {
     	/**
          * Compares the two Users by id

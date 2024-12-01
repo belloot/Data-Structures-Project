@@ -54,6 +54,16 @@ public class Interest {
         return sum;
     }
 	
+	/**
+     * Prints out the String of the Interest object
+     */
+    @Override
+    public String toString() {
+    	StringBuilder result = new StringBuilder();
+    	result.append(interest);
+    	return result.toString() + "\n";
+    }
+	
     /**
      * Compares the if Interests are equal
      * 
