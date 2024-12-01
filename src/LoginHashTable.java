@@ -29,11 +29,7 @@ public class LoginHashTable {
      * 
      * @param User, contains name and password
      */
-    //public void addUser(String username, String password)
-    public void addUser(String userName, String passWord ) {
-
-        User user = new User(userName, passWord);
-
+    public void addUser(User user) {
     	loginTable.add(user);
     }
     
@@ -41,8 +37,7 @@ public class LoginHashTable {
      * Retrieves full User after authentication
      * 
      */
-    public User getUser(String username, String password) {
-    	User user = new User(username, password);
+    public User getUser(User user) {
     	return loginTable.get(user);
     }
 }

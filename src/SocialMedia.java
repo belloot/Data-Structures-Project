@@ -159,7 +159,7 @@ public class SocialMedia {
                 System.out.print("Enter friend's Last name: ");
                 String friendLastName = scanner.nextLine();
                 ArrayList<User> currentFriendList;
-                currentFriendList = currentUser.searchUsersByName(friendFirstName,friendLastName);
+                currentFriendList = currentUser.searchFriendsByName(friendFirstName,friendLastName);
                 System.out.println("Choose options: \n");
                 System.out.println("1. View these friends' profiles");
                 System.out.println("2. Remove any friends\n");

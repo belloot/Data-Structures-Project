@@ -43,17 +43,15 @@ public class InterestManager {
     		addInterest(interest); //add interest if doesnt exist
     		actualInterest = interestTable.get(tempInterest); //after adding, get the interest
     	}
-    	BST<User> userBST = usersByInterest.get(actualInterest.getId()); //get the BST that contains users who have this interest
-
-
+    	BST<User> userBST = usersByInterest.get(actualInterest.getId()); //get the BST that contains users who have this interest id
 
     	User tempUser = new User(); //create a comparator that will be used to keep the BST ordering when inserting the user
-    	Comparator<User> userComparator = tempUser.new NameComparator(); 
+    	Comparator<User> userComparator = tempUser.new NameComparator(); // past FullNameComparator inside this file can use it, no need to make new User
 
         // May have problems
 
 
-    	userBST.insert(user, userComparator); //add user to the BST of users with same interest
+    	userBST.insert(user, userComparator); //add user to the BST of users with same interest id
     }
     
     /**

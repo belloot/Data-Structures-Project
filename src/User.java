@@ -265,7 +265,7 @@ public class User {
     // assuming that our friends BST doesn't have any duplicate names, do we need 
     // this method to return an ArrayList? There is a similar method in UserManager
     // but I think that is different
-    public ArrayList<User> searchUsersByName(String firstName, String lastName) {
+    public ArrayList<User> searchFriendsByName(String firstName, String lastName) {
     	ArrayList<User> friendsWithName = new ArrayList<User>();
     	// need to 
     	return friendsWithName;
