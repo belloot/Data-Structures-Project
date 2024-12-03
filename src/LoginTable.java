@@ -20,8 +20,8 @@ public class LoginHashTable {
      * @return True if the credentials are valid, otherwise false.
      */
     public boolean authenticate(String username, String password) {
-        User user = new User(username, password); //need default constructor for user for name and pass
-        return loginTable.contains(user); //check if loginTable contains user
+        User tempUser = new User(username, password);
+        return loginTable.get(tempUser) != null;
     }
 
     /**
@@ -29,15 +29,20 @@ public class LoginHashTable {
      * 
      * @param User, contains name and password
      */
-    public void addUser(User user) {
-    	loginTable.add(user);
+    public void addUser(String username, String password) {
+    	User user = new User(username, password);
+        loginTable.add(user);
     }
     
     /**
      * Retrieves full User after authentication
      * 
+     * @param username The username to look up
+     * @param password The password to verify
+     * @return The User object if found and authenticated, null otherwise
      */
-    public User getUser(User user) {
-    	return loginTable.get(user);
+    public User getUser(String username, String password) {
+        User tempUser = new User(username, password); // Create a temporary User with just username/password
+        return loginTable.get(tempUser); // Use tempUser to find the matching full User in the hash table
     }
 }
