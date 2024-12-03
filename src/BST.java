@@ -3,6 +3,7 @@
  * @author Khiem Vu
  * CIS 22C Lab 12
  */
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.NoSuchElementException;
 
@@ -420,6 +421,79 @@ public class BST<T> {
         	preOrderString(node.right, preOrder);
         }
     }
+    
+    // to remove a User from BST (even if the BST has a duplicate)
+    public void removeDuplicate(T itemToRemove, Comparator<T> cmp) {
+    	root = removeDuplicate(itemToRemove, root, cmp);
+    }
+    
+    private Node removeDuplicate(T itemToRemove, Node node, Comparator<T> cmp) {
+        if(node == null) {
+        	return node;
+        } else if(cmp.compare(itemToRemove, node.data) < 0) {
+        	node.left = remove(itemToRemove, node.left, cmp);
+        } else if(cmp.compare(itemToRemove, node.data) > 0) {
+        	node.right = remove(itemToRemove, node.right, cmp);
+        } else {
+        	if(node.data.equals(itemToRemove)) {
+        		if(node.left == null && node.right == null) {
+            		node = null;
+            	} else if(node.left != null && node.right == null) {
+            		node = node.left;
+            	} else if(node.left == null && node.right != null) {
+            		node = node.right;
+            	} else {
+            		T min = findMin(node.right);
+            		node.data = min;
+            		node.right = remove(min, node.right, cmp);
+            	}
+        	}
+        }
+        return node;
+    }
+    
+    /////Kai's edit
+    /**
+     * In order traversal to collect users for ArrayList
+     */
+    public void inOrderTraversal(ArrayList<T> list) {
+    	inOrderTraversal(root, list);
+    }
+    
+    /////Kai's edit
+    /**
+     * In order traversal to collect users for ArrayList
+     */
+    private void inOrderTraversal(Node node, ArrayList<T> list) {
+    	if(node == null) {
+    		return;
+    	} else {
+    		inOrderTraversal(node.left, list);
+    		list.add(node.data);
+    		inOrderTraversal(node.right, list);
+    	}
+    }
+    
+    // Khiem's edit
+    /**
+     * In order traversal to collect users with that full name for ArrayList (wrapper)
+     */
+    public void collectUsersWithFullName(ArrayList<T> list) {
+    	collectUsersWithFullName(root, list);
+    }
+    
+    // Khiem's edit
+    /**
+     * In order traversal to collect users with that full name for ArrayList (helper)
+     */
+    public void collectUsersWithFullName(Node node, ArrayList<T> list) {
+    	if(node == null) {
+    		return;
+    	} else {
+    		collectUsersWithFullName(node.left, list);
+    		if(node.data)
+    	}
+    }
 
     /**
      * Returns a String containing the data in order followed by a new line.
@@ -560,5 +634,41 @@ public class BST<T> {
     		}
     	}
     	return currLevel.data;
+    }
+    
+    /**
+     * Searches through the BST for Users with the specified first and last name.
+     * Creates and returns an ArrayList containing all matching Users.
+     * 
+     * @param firstName the first name to search for
+     * @param lastName the last name to search for
+     * @return ArrayList containing all Users with matching first and last names,
+     *         returns empty ArrayList if no matches are found
+     */
+    public ArrayList<T> searchByName(String firstName, String lastName) {
+        ArrayList<T> result = new ArrayList<>();
+        searchByNameHelper(root, firstName, lastName, result);
+        return result;
+    }
+
+    /**
+     * Helper method for searchByName that recursively traverses the BST.
+     * Adds any Users with matching names to the result ArrayList.
+     * 
+     * @param node the current node being examined
+     * @param firstName the first name to search for
+     * @param lastName the last name to search for
+     * @param result ArrayList to store matching Users
+     */
+    private void searchByNameHelper(Node node, String firstName, String lastName, ArrayList<T> result) {
+        if (node == null) {
+            return;
+        }
+        User user = (User)node.data;  // Cast T to User since we know we're storing User objects
+        if (user.getFirstName().equals(firstName) && user.getLastName().equals(lastName)) {
+        result.add((T)user);
+        }
+        searchByNameHelper(node.left, firstName, lastName, result);
+        searchByNameHelper(node.right, firstName, lastName, result);
     }
 }
