@@ -37,19 +37,29 @@ public class UserManager {
     }
 
     /**
-     * Retrieves a user by their username.
+     * Retrieves a user by their username and password.
      *
-     * @param username The username to search for.
-     * @return The User object if found, otherwise null.
+     * @param username The username to search for
+     * @param password The password to verify
+     * @param loginTable The hash table containing login credentials
+     * @return The User object if found and password matches, otherwise null
      */
     public User getUserByUsername(String username, String password, LoginHashTable loginTable) {
-                     // I think this method will need to use LoginTable to actually retrieve the User object. 
-        			 // LoginTable should have a method to retrieve a User object given username and password.
-        			 // Also this method probably needs another argument, String password, to make this happen.
-        			 // Will need to change main to accommodate for this
-        User userWanted = loginTable.getUser(username, password); // example
-        userWanted = usersByName.search(userWanted, fullNameCmp);
-        return userWanted;
+        // Get the user from the login table (this verifies username/password combination)
+        User userWanted = loginTable.getUser(username, password);
+        
+        // If login credentials were invalid, return null
+        if (userWanted == null) {
+            return null;
+        }
+        
+        // Find the full user object in our BST using the verified user
+        return usersByName.search(userWanted, fullNameCmp);
+
+        // I think this method will need to use LoginTable to actually retrieve the User object. 
+        // LoginTable should have a method to retrieve a User object given username and password.
+        // Also this method probably needs another argument, String password, to make this happen.
+        // Will need to change main to accommodate for this
     }
 
     /**
