@@ -15,6 +15,7 @@ public class UserManager {
      */
     public UserManager() {
     	usersByName = new BST<User>();
+    	usersIndexedById = new ArrayList<>();
     	usersIndexedById.add(0, null); // make index 0 null because we don't need it
     }
 
@@ -59,9 +60,13 @@ public class UserManager {
      * @return A list of User objects with the specified name.
      */
     public ArrayList<User> searchUsersByName(String firstName, String lastName) {
-        return null; // Similar to the method above, I probably need LoginTable
+        //return null; // Similar to the method above, I probably need LoginTable
         			 // Also I need to add a BST method to be able to search 
                      // for and return an ArrayList of Users
+    	ArrayList<User> searchMatches = new ArrayList<>();
+    	User tempUser = new User(firstName, lastName);
+    	usersByName.searchAll(tempUser, fullNameCmp, searchMatches);
+    	return searchMatches;
     }
     
     // This method has been implemented inside InterestManager
@@ -115,8 +120,8 @@ public class UserManager {
          */
         @Override
         public int compare(User user1, User user2) {
-        	String user1FullName = user1.getFirstName() + user1.getLastName();
-        	String user2FullName = user2.getFirstName() + user2.getLastName();
+        	String user1FullName = (user1.getFirstName() + user1.getLastName()).toLowerCase();
+        	String user2FullName = (user2.getFirstName() + user2.getLastName()).toLowerCase();
             return user1FullName.compareTo(user2FullName);
         }
     }

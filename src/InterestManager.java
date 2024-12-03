@@ -43,6 +43,7 @@ public class InterestManager {
      * @param newInterest the new interest
      */
     public void addUserInterest(User user, String interest) {
+    	interest = interest.toLowerCase();
     	Interest tempInterest = new Interest(0, interest); //no need to care about id, use this to search for existing interest in interestTable
     	Interest actualInterest = interestTable.get(tempInterest); //Check if already exists in interestTable
     	if(actualInterest == null) {//interest doesnt exist
@@ -67,6 +68,7 @@ public class InterestManager {
      * @return A list of User objects who share the specified interest.
      */
     public ArrayList<User> searchUsersByInterest(String interest) {
+    	interest = interest.toLowerCase();
     	Interest tempInterest = new Interest(0, interest);
     	Interest actualInterest = interestTable.get(tempInterest);
     	if(actualInterest == null) {
@@ -85,8 +87,33 @@ public class InterestManager {
     // return arraylist of users so that user can be constructed
 
    public ArrayList<Interest> createInterestArray(Scanner s) {
-      return null;
-  }
+      ArrayList<Interest> userInterests = new ArrayList<>();
+      System.out.println("Enter your interest. Type 'finish' when finished");
+      while(true) {
+    	  System.out.print("Enter an interest: ");
+    	  String interestName = s.nextLine();
+    	  
+    	  if(interestName.equalsIgnoreCase("finish")) {
+    		  break;
+    	  }
+    	  interestName = interestName.toLowerCase();
+    	  
+    	  Interest tempInterest = new Interest(0, interestName); //temp interest to check if exists
+    	  Interest realInterest = interestTable.get(tempInterest); //exists then get it
+    	  
+    	  if(realInterest == null) { //interest doesnt exist
+    		  addInterest(interestName); //add new if doesnt exist
+    		  realInterest = interestTable.get(tempInterest);
+    	  }
+    	  
+    	  if(!userInterests.contains(realInterest) ) {
+    		  userInterests.add(realInterest);
+    	  } else {
+    		  System.out.println("Interest already added");
+    	  }
+      }
+      return userInterests;
+   }
    
    class FullNameComparator implements Comparator<User> {
        /**

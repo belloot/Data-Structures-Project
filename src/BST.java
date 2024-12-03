@@ -494,6 +494,34 @@ public class BST<T> {
     		if(node.data)
     	}
     }
+    
+    /**
+     * Collect all nodes (users) that match search key
+     *
+     */
+    public void searchAll(T data, Comparator<T> cmp, ArrayList<T> matches) {
+    	searchAll(root, data, cmp, matches);
+    }
+    
+    /**
+     * Collect all nodes (users) that match search key
+     *
+     */
+    private void searchAll(Node node, T data, Comparator<T> cmp, ArrayList<T> matches) {
+    	if(node == null) {
+    		return;
+    	}
+    	int comparisonValue = cmp.compare(data, node.data);
+    	if(comparisonValue == 0) {
+    		searchAll(node.left, data, cmp, matches);
+    		matches.add(node.data);
+    		searchAll(node.right, data, cmp, matches);
+    	} else if (comparisonValue < 0) {
+    		searchAll(node.left, data, cmp, matches);
+    	} else {
+    		searchAll(node.right, data, cmp, matches);
+    	}
+    }
 
     /**
      * Returns a String containing the data in order followed by a new line.

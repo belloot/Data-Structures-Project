@@ -14,7 +14,25 @@ public class User {
     private String city;
     private BST<User> friendsByName;
     private LinkedList<Interest> interests; // recommended to create an Interest class
-
+    
+    /**
+     * Constructor to create a user with only first and last names
+     * Create temp user for comparison in BST
+     * 
+     * @param id the user id
+     */
+    public User(String firstName, String lastName) {
+    	this.firstName = firstName;
+    	this.lastName = lastName;
+    	this.userName = "";
+    	this.password = "";
+    	this.city = "";
+    	this.friendsByName = new BST<User>();
+    	this.interests = new LinkedList<Interest>();
+    }
+    
+    
+    
     /**
      * One argument constructor for User that only
      * takes in the id
@@ -195,7 +213,9 @@ public class User {
      * @param interest The interest to add.
      */
     public void addInterest(Interest interest) {
-    	interests.addLast(interest);
+    	if(!interests.contains(interest)) {
+    		interests.addLast(interest);
+    	}
     }
     
     public void updateCity(String city) {
@@ -339,10 +359,11 @@ public class User {
         	return false;
         } else {
         	User user = (User) obj;
-        	if(user.getId() != this.id) {
-        		return false;
-        	}
-        	return true;
+//        	if(user.getId() != this.id) {
+//        		return false;
+//        	}
+//        	return true;
+        	return this.userName.equals(user.userName) && this.password.equals(user.password); //Compare based on userName and password
         }
     }
     
