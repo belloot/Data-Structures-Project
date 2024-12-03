@@ -9,6 +9,11 @@ public class SocialMedia {
     private static FileHandler fileHandler; // Handles file operations
     private static User currentUser; // Tracks the logged-in user 13e12
     private static Scanner scanner = new Scanner(System.in);
+    public static int numCurrentUsers = 0;
+    
+    
+    // TESTING (Khiem 2:44 PM)
+    // TESTING (Khiem 2:52 PM)
 
     // could have two hashTables here
     // 1. hashTable that stores all users (could be stored in UserManager)
@@ -40,7 +45,7 @@ public class SocialMedia {
         loginTable = new LoginHashTable();
 
         // Load data from the file
-        fileHandler.loadData(userManager, friendGraph, interestManager, loginTable);
+        fileHandler.loadData(userManager, friendGraph, interestManager, loginTable, numCurrentUsers);
 
         System.out.println("Welcome to the Social Media App!");
         boolean isRunning = true;
@@ -99,13 +104,14 @@ public class SocialMedia {
         ArrayList<Interest> InterestsrArray;
         InterestsrArray = InterestManager.createInterestArray(scanner);
 
-        User currentUser = new User();// khien update this one
+        User currentUser = new User(userManager.getNumUsers() + 1, firstName, lastName, username, password, city, InterestsrArray);// khien update this one
 
         userManager.addUser(currentUser);
         loginTable.addUser(username, password);
         friendGraph.addUser(currentUser);
 
         System.out.println("Account created successfully! You are now logged in.");
+        numCurrentUsers++;
         userMenu(scanner);
     }
 
@@ -155,7 +161,7 @@ public class SocialMedia {
                 System.out.print("Enter friend's Last name: ");
                 String friendLastName = scanner.nextLine();
                 ArrayList<User> currentFriendList;
-                currentFriendList = currentUser.searchUsersByName(friendFirstName,friendLastName);
+                currentFriendList = currentUser.searchFriendsByName(friendFirstName,friendLastName);
                 System.out.println("Choose options: \n");
                 System.out.println("1. View these friends' profiles");
                 System.out.println("2. Remove any friends\n");
@@ -170,13 +176,13 @@ public class SocialMedia {
 
                         // khiem handles this part(print all friends in friendlist)
 
-                        System.out.println("Enter the id of the friend you want to remove:\n")
+                        System.out.println("Enter the id of the friend you want to remove:\n");
 
                         int removeId = scanner.nextInt();
 
                         scanner.nextLine();
 
-                        currentUser.removeFriend(removeId);
+                        currentUser.removeFriend(removeId, userManager);
 
                     }
                 
