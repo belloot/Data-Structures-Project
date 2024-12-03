@@ -29,7 +29,7 @@ public class LoginHashTable {
      * 
      * @param User, contains name and password
      */
-    public void addUser(User user) {
+    public void addUser(String username, String password) {
     	loginTable.add(user);
     }
     

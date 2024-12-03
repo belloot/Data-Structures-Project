@@ -14,7 +14,7 @@ public class FriendGraph {
     public Graph friendGraph;
 
     public FriendGraph(UserManager userManager, Integer numCurrentUsers) {
-        friendGraph = new Graph(numCurrentUsers);
+        friendGraph = new Graph(numCurrentUsers + 15);
     }
     
     
@@ -50,9 +50,15 @@ public class FriendGraph {
      * @param user The user for whom recommendations are being generated.
      * @return A list of recommended friends.
      */
-    public ArrayList<User> getRecommendations(User user) {
+    public ArrayList<User> getRecommendations(User user, UserManager userManager) {
+    	// take into consideration the distance between the recommendation and the user
+    	// take into consideration if the recommendation and the user has one or more common interests
         ArrayList<User> recommendations = new ArrayList<>();
-
+        LinkedList<Integer> friends_adj_list = friendGraph.getAdjacencyList(user.getId());
+        
+        
+        return recommendations;
+        /*
         // Iterate through all the user's friends
         LinkedList<User> friends = user.getFriendsList(); // Assuming you expose a method to get the list of friends
         friends.positionIterator();
@@ -75,7 +81,46 @@ public class FriendGraph {
             }
             friends.advanceIterator();
         }
-
-        return recommendations;
+        */
+    }
+    
+    /**
+     * this is supposed to be the same "compare(User user)" method in the TodoList.docx
+     * Determines if the current user and another user meet at least
+     * one of these conditions
+     * 1. They are from the same city
+     * 2. They have at least one same friend
+     * 3. They have at least one same interest
+     * @param other the other user to compare with
+     * @return if they could be potential friends
+     */
+    // This method should be written in FriendGraph
+    public boolean canBePotentialFriends(User other){
+    	// return false if they are not at the same city
+    	if(!city.equals(other.getCity())){
+    		return false;
+    	}
+    	
+    	// return false if they don't have at least one same interest
+    	boolean oneSameInterest = false;
+    	ArrayList<Interest> otherInterestsList = other.getInterestsList();
+    	// go through the other user's interests list, they there is an interest the other has
+    	// that the current user also has, then they have at least one same interest
+    	for(int i = 0; i < otherInterestsList.size(); i++) {
+    		if(interests.findIndex(otherInterestsList.get(i)) != -1) {
+    			oneSameInterest = true;
+    		}
+    	}
+    	if(oneSameInterest == false) {
+    		return false;
+    	}
+    	
+    	/*
+    	 * return false if they don't have at least one same friend
+    	 * will implement using future friendGraph method (see my Google Doc for details)
+    	 */
+    	
+    	// return true because the conditions haven't been violated
+    	return true;
     }
 }

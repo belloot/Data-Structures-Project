@@ -154,7 +154,10 @@ public class SocialMedia {
         scanner.nextLine();
 
         switch (choice) {
-            case 1 -> currentUser.viewFriendsAlphabetically();
+            case 1 -> {
+            	System.out.println("Viewing friends sorted by name: ");
+            	currentUser.viewFriendsAlphabetically();
+            }
             case 2 -> {
                 System.out.print("Enter friend's first name: ");
                 String friendFirstName = scanner.nextLine();
@@ -174,7 +177,8 @@ public class SocialMedia {
                     case 2 -> {
                         System.out.println("From the Friends(May include duplicate names) below, choose one to remove:\n");
 
-                        // khiem handles this part(print all friends in friendlist)
+                        // khiem handles this part(print all friends in friendlist) (DONE: one line below)
+                        userManager.viewProfileOfFriendsInList(currentFriendList);
 
                         System.out.println("Enter the id of the friend you want to remove:\n");
 
@@ -274,9 +278,11 @@ public class SocialMedia {
                 
 
                 ArrayList<User> wantedFriendsList;
-                wantedFriendsList = friendGraph.getRecommendations(currentUser);
+                // Khiem: we also need to pass in UserManager to access the BST with all users
+                wantedFriendsList = friendGraph.getRecommendations(currentUser, userManager);
 
                 //print the friends in list
+                // still need to implement (loop through wantedFriendsList and print out the ID and the name of the recommended person)
 
                 System.out.println("Type the id of the friend you want to add, -1 if none you want to add: \n");
 

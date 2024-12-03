@@ -243,45 +243,6 @@ public class User {
         }
     }
     
-    /**
-     * this is supposed to be the same "compare(User user)" method in the TodoList.docx
-     * Determines if the current user and another user meet at least
-     * one of these conditions
-     * 1. They are from the same city
-     * 2. They have at least one same friend
-     * 3. They have at least one same interest
-     * @param other the other user to compare with
-     * @return if they could be potential friends
-     */
-    // This method should be written in FriendGraph
-    public boolean canBePotentialFriends(User other){
-    	// return false if they are not at the same city
-    	if(!city.equals(other.getCity())){
-    		return false;
-    	}
-    	
-    	// return false if they don't have at least one same interest
-    	boolean oneSameInterest = false;
-    	ArrayList<Interest> otherInterestsList = other.getInterestsList();
-    	// go through the other user's interests list, they there is an interest the other has
-    	// that the current user also has, then they have at least one same interest
-    	for(int i = 0; i < otherInterestsList.size(); i++) {
-    		if(interests.findIndex(otherInterestsList.get(i)) != -1) {
-    			oneSameInterest = true;
-    		}
-    	}
-    	if(oneSameInterest == false) {
-    		return false;
-    	}
-    	
-    	/*
-    	 * return false if they don't have at least one same friend
-    	 * will implement using future friendGraph method (see my Google Doc for details)
-    	 */
-    	
-    	// return true because the conditions haven't been violated
-    	return true;
-    }
     
     // search FRIENDS by name and returns an ArrayList of friends having that name
     // this is the method where we need the BST search to return an ArrayList
