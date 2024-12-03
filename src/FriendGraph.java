@@ -11,22 +11,28 @@ import java.util.ArrayList;
  */
 public class FriendGraph {
 
-    private ArrayList<User> users;  // List to store users
-    private Graph friendGraph;
+    public Graph friendGraph;
 
-    public FriendGraph() {
-        this.users = new ArrayList<>();
+    public FriendGraph(UserManager userManager, Integer numCurrentUsers) {
+        friendGraph = new Graph(numCurrentUsers);
     }
-
+    
+    
+    // return the network of friends
+ 	public Graph getFriendGraph() {
+ 		return this.friendGraph;
+ 	}
+ 	
     /**
-     * Adds a user to the graph.
+     * Adds a friendship connection between two users.
      *
-     * @param user The user to add.
+     * @param user   The first user.
+     * @param friend The friend to add.
      */
-    public void addUser(User user) {
-        users.add(user);  // Add the user to the list
+    public void addFriend(Integer id, Integer friendsId) {
+        friendGraph.addUndirectedEdge(id, friendsId);
     }
-
+    
     /**
      * Checks if two users are friends.
      *
@@ -35,17 +41,7 @@ public class FriendGraph {
      * @return True if the users are friends, otherwise false.
      */
     public boolean areFriends(User user1, User user2) {
-        return user1.getFriends().contains(user2);
-    }
-
-    /**
-     * Adds a friendship connection between two users.
-     *
-     * @param user   The first user.
-     * @param friend The friend to add.
-     */
-    public void addFriend(User user, User friend) {
-        user.addFriend(friend); // Using the addFriend method from the User class
+        return !(friendGraph.getAdjacencyList(user1.getId()).findIndex(user2.getId()) == -1);
     }
 
     /**
