@@ -453,48 +453,6 @@ public class BST<T> {
         return node;
     }
     
-    /////Kai's edit
-    /**
-     * In order traversal to collect users for ArrayList
-     */
-    public void inOrderTraversal(ArrayList<T> list) {
-    	inOrderTraversal(root, list);
-    }
-    
-    /////Kai's edit
-    /**
-     * In order traversal to collect users for ArrayList
-     */
-    private void inOrderTraversal(Node node, ArrayList<T> list) {
-    	if(node == null) {
-    		return;
-    	} else {
-    		inOrderTraversal(node.left, list);
-    		list.add(node.data);
-    		inOrderTraversal(node.right, list);
-    	}
-    }
-    
-    // Khiem's edit
-    /**
-     * In order traversal to collect users with that full name for ArrayList (wrapper)
-     */
-    public void collectUsersWithFullName(ArrayList<T> list) {
-    	collectUsersWithFullName(root, list);
-    }
-    
-    // Khiem's edit
-    /**
-     * In order traversal to collect users with that full name for ArrayList (helper)
-     */
-    public void collectUsersWithFullName(Node node, ArrayList<T> list) {
-    	if(node == null) {
-    		return;
-    	} else {
-    		collectUsersWithFullName(node.left, list);
-    		if(node.data)
-    	}
-    }
     
     /**
      * Collect all nodes (users) that match search key
@@ -697,8 +655,8 @@ public class BST<T> {
      * @return ArrayList containing all Users with matching first and last names,
      *         returns empty ArrayList if no matches are found
      */
-    public ArrayList<T> searchByName(String firstName, String lastName) {
-        ArrayList<T> result = new ArrayList<>();
+    public ArrayList<User> searchByName(String firstName, String lastName) {
+        ArrayList<User> result = new ArrayList<>();
         searchByNameHelper(root, firstName, lastName, result);
         return result;
     }
@@ -712,13 +670,13 @@ public class BST<T> {
      * @param lastName the last name to search for
      * @param result ArrayList to store matching Users
      */
-    private void searchByNameHelper(Node node, String firstName, String lastName, ArrayList<T> result) {
+    private void searchByNameHelper(Node node, String firstName, String lastName, ArrayList<User> result) {
         if (node == null) {
             return;
         }
-        User user = (User)node.data;  // Cast T to User since we know we're storing User objects
+        User user = (User) node.data;  // Cast T to User since we know we're storing User objects
         if (user.getFirstName().equals(firstName) && user.getLastName().equals(lastName)) {
-        result.add((T)user);
+        result.add(user);
         }
         searchByNameHelper(node.left, firstName, lastName, result);
         searchByNameHelper(node.right, firstName, lastName, result);

@@ -6,7 +6,7 @@ public class SocialMedia {
     private static FriendGraph friendGraph; // Manages relationships (Graph)
     private static InterestManager interestManager; // Manages interests (HashTable + ArrayList of BSTs)
     private static LoginHashTable loginTable; // Manages authentication (HashTable)
-    private static FileHandler fileHandler; // Handles file operations
+    private static FileManager fileHandler; // Handles file operations
     private static User currentUser; // Tracks the logged-in user 13e12
     private static Scanner scanner = new Scanner(System.in);
     public static int numCurrentUsers = 0;
@@ -38,7 +38,7 @@ public class SocialMedia {
     public static void main(String[] args) {
 
         // Initialize components
-        fileHandler = new FileHandler();
+        fileHandler = new FileManager();
         userManager = new UserManager();
         friendGraph = new FriendGraph();
         interestManager = new InterestManager();

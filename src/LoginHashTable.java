@@ -47,7 +47,7 @@ public class LoginHashTable {
     public User getUser(User user) {
     	return loginTable.get(user);
     }
-}
+    
     public User getUser(String username, String password) {
     	User user = new User(username, password);
     	return loginTable.get(user);

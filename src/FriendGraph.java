@@ -14,7 +14,11 @@ public class FriendGraph {
 
     public Graph friendGraph;
     private CreditComparator creditCmp = new CreditComparator();
-
+    
+    public FriendGraph() {
+    	
+    }
+    
     public FriendGraph(UserManager userManager, Integer numCurrentUsers) {
         friendGraph = new Graph(numCurrentUsers * 2);
     }

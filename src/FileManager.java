@@ -2,7 +2,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileReader;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,8 +9,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Comparator;
-import FileWriter;
-
 import javax.sound.sampled.spi.AudioFileReader;
 
 /**
@@ -37,7 +34,7 @@ public class FileManager {
          * @throws FileNotFoundException
          */
         public void loadData(UserManager userManager, FriendGraph friendGraph, InterestManager interestManager,
-                        LoginHashTable loginTable, int numCurrentUsers) {
+                        LoginHashTable loginTable, int numCurrentUsers) throws FileNotFoundException {
                 IdComparator IdCmp = new IdComparator(); // maybe no need it in here
                 File file = new File("NFLPlayers.txt"); // Adjust the file path if needed
                 if (file.exists()) {
