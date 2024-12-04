@@ -46,7 +46,7 @@ public class Interest {
 	 */
 	@Override
     public int hashCode() {
-        String key = interest;
+        String key = interest.toLowerCase();
         int sum = 0;
         for(int i = 0; i < key.length(); i++) {
         	sum += key.charAt(i);
@@ -79,7 +79,7 @@ public class Interest {
 			return false;
 		}
 		Interest otherInterest = (Interest) obj;
-		return this.interest.equals(otherInterest.interest);
+		return this.interest.equalsIgnoreCase(otherInterest.interest);
 	}
 	
 }

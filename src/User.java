@@ -216,7 +216,9 @@ public class User {
      * @param interest The interest to add.
      */
     public void addInterest(Interest interest) {
-    	interests.addLast(interest);
+    	if(!interests.contains(interest)) {
+    		interests.addLast(interest);
+    	}
     }
     
     // updates city
@@ -347,10 +349,11 @@ public class User {
         	return false;
         } else {
         	User user = (User) obj;
-        	if(user.getId() != this.id) {
-        		return false;
-        	}
-        	return true;
+//        	if(user.getId() != this.id) {
+//        		return false;
+//        	}
+//        	return true;
+        	return this.userName.equals(user.userName) && this.password.equals(user.password); //Compare based on userName and password
         }
     }
     /////Kai's edit

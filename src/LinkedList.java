@@ -347,6 +347,22 @@ public class LinkedList<T> {
         }
         return result.toString() + "\n";
     }
+    
+    /**
+     * Checks if the list contains the specified element.
+     * @param data the element to search for.
+     * @return true if element found, false otherwise.
+     */
+    public boolean contains(T data) {
+        Node temp = first;
+        while (temp != null) {
+            if (temp.data.equals(data)) {
+                return true;
+            }
+            temp = temp.next;
+        }
+        return false;
+    }
 
     /**
      * Determines whether the given Object is
