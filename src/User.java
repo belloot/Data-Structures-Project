@@ -28,11 +28,6 @@ public class User {
         interests = new LinkedList<>();
     }
     
-    public User(String userName, String passWord) {
-    	this.userName = userName;
-    	this.password = passWord;
-    }
-    
     /**
      * Four argument constructor for User 
      * @param id The unique ID of the user
@@ -72,6 +67,31 @@ public class User {
     	for(int i = 0; i < interestsArray.size(); i++) {
     		addInterest(interestsArray.get(i));
     	}
+    }
+    
+    /////Kai's edit
+    /**
+     * Constructor to be used to create temp user for login authentication
+     * 2 arguments constructor for User that
+     * takes in the username, password
+     * 
+     * @param username the username of the user
+     * @param password the password of the user
+     */
+    public User(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
+    }
+    
+    /////Kai's edit
+    /**
+     * default constructor for User
+     * 
+     * @param id the user id
+     */
+    public User() {
+    	this.firstName = "tempUser";
+    	this.lastName = "tempUser"; 	
     }
 
     /**
@@ -317,6 +337,25 @@ public class User {
         	}
         	return true;
         }
+    }
+    /////Kai's edit
+    /**
+     * Compares the if Users are equal
+     * by name or password
+     * 
+     * @param obj
+     * @return boolean
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof User)) return false;
+        User otherUser = (User) obj;
+        return this.userName.equals(otherUser.userName) && this.password.equals(otherUser.password);
+    }
+
+    public void removeFriend(int id) {
+
     }
     
     class FullNameComparator implements Comparator<User> {

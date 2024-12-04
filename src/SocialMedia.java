@@ -101,8 +101,8 @@ public class SocialMedia {
         String password = scanner.nextLine();
         System.out.print("Enter city: ");
         String city = scanner.nextLine();
-        ArrayList<Interest> InterestsrArray;
-        InterestsrArray = InterestManager.createInterestArray(scanner);
+        ArrayList<Interest> InterestsArray;
+        InterestsArray = interestManager.createInterestArray(scanner);
 
         User currentUser = new User(userManager.getNumUsers() + 1, firstName, lastName, username, password, city, InterestsrArray);// khien update this one
 

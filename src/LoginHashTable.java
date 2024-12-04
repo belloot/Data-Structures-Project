@@ -30,6 +30,13 @@ public class LoginHashTable {
      * @param User, contains name and password
      */
     public void addUser(User user) {
+        loginTable.add(user);
+    }
+    
+    public void addUser(String userName, String passWord ) {
+
+        User user = new User(userName, passWord);
+
     	loginTable.add(user);
     }
     
@@ -41,3 +48,9 @@ public class LoginHashTable {
     	return loginTable.get(user);
     }
 }
+    public User getUser(String username, String password) {
+    	User user = new User(username, password);
+    	return loginTable.get(user);
+    }
+}
+
