@@ -5,6 +5,7 @@
 // in the User class to convert the BST<User> into a LinkedList<User> for easier manipulation
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * Manages the graph of relationships between users.
@@ -12,9 +13,10 @@ import java.util.ArrayList;
 public class FriendGraph {
 
     public Graph friendGraph;
+    private CreditComparator creditCmp = new CreditComparator();
 
     public FriendGraph(UserManager userManager, Integer numCurrentUsers) {
-        friendGraph = new Graph(numCurrentUsers + 15);
+        friendGraph = new Graph(numCurrentUsers * 2);
     }
     
     
@@ -50,77 +52,77 @@ public class FriendGraph {
      * @param user The user for whom recommendations are being generated.
      * @return A list of recommended friends.
      */
-    public ArrayList<User> getRecommendations(User user, UserManager userManager) {
+    public ArrayList<User> getRecommendations(User user, UserManager userManager, InterestManager interestManager) {
     	// take into consideration the distance between the recommendation and the user
     	// take into consideration if the recommendation and the user has one or more common interests
-        ArrayList<User> recommendations = new ArrayList<>();
-        LinkedList<Integer> friends_adj_list = friendGraph.getAdjacencyList(user.getId());
         
+        // call BFS on current user to find relationships
+        ArrayList<User> potentialFriendsList = new ArrayList<>();
+        BST<User> potentialFriendsBST = new BST<>();
         
-        return recommendations;
-        /*
-        // Iterate through all the user's friends
-        LinkedList<User> friends = user.getFriendsList(); // Assuming you expose a method to get the list of friends
-        friends.positionIterator();
-
-        while (!friends.offEnd()) {
-            User friend = friends.getIterator();
-
-            // For each friend, get their friends (friends of friends)
-            LinkedList<User> friendsOfFriend = friend.getFriendsList();
-            friendsOfFriend.positionIterator();
-
-            while (!friendsOfFriend.offEnd()) {
-                User friendOfFriend = friendsOfFriend.getIterator();
-
-                // Only recommend users who are not already friends with the user
-                if (!user.getFriendsList().contains(friendOfFriend)) {
-                    recommendations.add(friendOfFriend);
-                }
-                friendsOfFriend.advanceIterator();
-            }
-            friends.advanceIterator();
+        friendGraph.BFS(user.getId());
+        
+        // this for loop is to get all potential friends (friends of friends, etc.)
+        for(int id = 1; id < userManager.getNumUsers(); id++) {
+        	int distanceOfCurrentUser = friendGraph.getDistance(id);
+        	if(distanceOfCurrentUser == 0 || distanceOfCurrentUser == -1 || distanceOfCurrentUser == 1) {
+        		continue;
+        	} else {
+        		potentialFriendsList.add(userManager.searchUserById(id));
+        	}
         }
-        */
+        
+        // updating friend recommendation credit for interests
+        ArrayList<Interest> loggedInUserInterestList = user.getInterestsList();
+        for(int i = 0; i < loggedInUserInterestList.size(); i++) {
+        	for(int j = 0; j < potentialFriendsList.size(); j++) {
+        		ArrayList<Interest> potentialFriendInterestList = potentialFriendsList.get(j).getInterestsList();
+        		// see if logged in user current interest exists inside potential friend's interest list
+        		Interest loggedInUserCurrentInterest = loggedInUserInterestList.get(i);
+        		if(potentialFriendInterestList.indexOf(loggedInUserCurrentInterest) != -1) {
+        			potentialFriendsList.get(j).incrementCredit(1);
+        		}	
+        	}
+        }
+        
+        // updating friend recommendation credit for friend connections
+        for(int i = 0; i < potentialFriendsList.size(); i++) {
+        	User currentPotentialFriend = potentialFriendsList.get(i);
+        	int currentPotentialFriendId = currentPotentialFriend.getId();
+        	int distanceOfPotentialFriend = friendGraph.getDistance(currentPotentialFriendId);
+        	if(distanceOfPotentialFriend == 2) {
+        		currentPotentialFriend.incrementCredit(3);
+        	} else if (distanceOfPotentialFriend > 2 && distanceOfPotentialFriend <= 4) {
+        		currentPotentialFriend.incrementCredit(2);
+        	} else {
+        		currentPotentialFriend.incrementCredit(1);
+        	}
+        }
+        
+        // insert all potential friends into BST to get them sorted
+        for(int i = 0; i < potentialFriendsList.size(); i++) {
+        	potentialFriendsBST.insert(potentialFriendsList.get(i), creditCmp);
+        }
+        
+        // collect the sorted potential friends from BST back into potential friends list
+        potentialFriendsBST.inOrderTraversal(potentialFriendsList);
+        
+        return potentialFriendsList;
     }
     
-    /**
-     * this is supposed to be the same "compare(User user)" method in the TodoList.docx
-     * Determines if the current user and another user meet at least
-     * one of these conditions
-     * 1. They are from the same city
-     * 2. They have at least one same friend
-     * 3. They have at least one same interest
-     * @param other the other user to compare with
-     * @return if they could be potential friends
-     */
-    // This method should be written in FriendGraph
-    public boolean canBePotentialFriends(User other){
-    	// return false if they are not at the same city
-    	if(!city.equals(other.getCity())){
-    		return false;
-    	}
-    	
-    	// return false if they don't have at least one same interest
-    	boolean oneSameInterest = false;
-    	ArrayList<Interest> otherInterestsList = other.getInterestsList();
-    	// go through the other user's interests list, they there is an interest the other has
-    	// that the current user also has, then they have at least one same interest
-    	for(int i = 0; i < otherInterestsList.size(); i++) {
-    		if(interests.findIndex(otherInterestsList.get(i)) != -1) {
-    			oneSameInterest = true;
-    		}
-    	}
-    	if(oneSameInterest == false) {
-    		return false;
-    	}
-    	
-    	/*
-    	 * return false if they don't have at least one same friend
-    	 * will implement using future friendGraph method (see my Google Doc for details)
-    	 */
-    	
-    	// return true because the conditions haven't been violated
-    	return true;
+    class CreditComparator implements Comparator<User> {
+        /**
+         * Compares the two Users by first names
+         * uses the String compareTo method to make the comparison
+         * 
+         * @param user1 the first User
+         * @param user2 the second User
+         * @return The comparison.
+         */
+        @Override
+        public int compare(User user1, User user2) {
+        	return Integer.compare(user1.getFriendCredit(), user2.getFriendCredit());
+        }
     }
+    
 }

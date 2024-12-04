@@ -234,7 +234,7 @@ public class SocialMedia {
 
                     currentUser.addFriend(userManager.searchUserById(friendId));
 
-                    friendGraph.addFriend(currentUser, userManager.searchUserById(friendId));
+                    friendGraph.addFriend(currentUser.getId(), friendId);
 
                 }else{
                 // go back to make new friends tab
@@ -261,7 +261,7 @@ public class SocialMedia {
 
                     currentUser.addFriend(userManager.searchUserById(friendId));
 
-                    friendGraph.addFriend(currentUser, userManager.searchUserById(friendId));
+                    friendGraph.addFriend(currentUser.getId(), friendId);
 
                 }else{
 
@@ -278,11 +278,12 @@ public class SocialMedia {
                 
 
                 ArrayList<User> wantedFriendsList;
-                // Khiem: we also need to pass in UserManager to access the BST with all users
-                wantedFriendsList = friendGraph.getRecommendations(currentUser, userManager);
+                wantedFriendsList = friendGraph.getRecommendations(currentUser, userManager, interestManager);
 
                 //print the friends in list
-                // still need to implement (loop through wantedFriendsList and print out the ID and the name of the recommended person)
+                for(int i = 0; i < wantedFriendsList.size(); i++) {
+                	System.out.println(wantedFriendsList.get(i).toString());
+                }
 
                 System.out.println("Type the id of the friend you want to add, -1 if none you want to add: \n");
 
@@ -294,7 +295,7 @@ public class SocialMedia {
 
                     currentUser.addFriend(userManager.searchUserById(friendId));
 
-                    friendGraph.addFriend(currentUser, userManager.searchUserById(friendId));
+                    friendGraph.addFriend(currentUser.getId(), friendId);
 
                 }else{
 

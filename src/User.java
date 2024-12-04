@@ -14,6 +14,7 @@ public class User {
     private String city;
     private BST<User> friendsByName;
     private LinkedList<Interest> interests; // recommended to create an Interest class
+    private int friendCredit = 0;
 
     /**
      * One argument constructor for User that only
@@ -198,9 +199,20 @@ public class User {
     	interests.addLast(interest);
     }
     
+    // updates city
     public void updateCity(String city) {
     	
     	this.city = city;
+    }
+    
+    // get the friend's user credit
+    public int getFriendCredit() {
+    	return friendCredit;
+    }
+    
+    // increments friend credit for friend recommendation system
+    public void incrementCredit(int value) {
+    	friendCredit += value;
     }
 
     /**
