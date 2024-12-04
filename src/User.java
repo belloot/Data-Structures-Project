@@ -281,8 +281,23 @@ public class User {
     // assuming that our friends BST doesn't have any duplicate names, do we need 
     // this method to return an ArrayList? There is a similar method in UserManager
     // but I think that is different
+
+    /**
+     * Searches through the user's friends list for friends with the specified name.
+     * Creates a new ArrayList to store and return the results from searching
+     * the friends BST for users with matching first and last names.
+     * 
+     * @param firstName the first name to search for in friends list
+     * @param lastName the last name to search for in friends list
+     * @return ArrayList containing all friends with matching first and last names,
+     *         returns empty ArrayList if no matches are found
+     */
     public ArrayList<User> searchFriendsByName(String firstName, String lastName) {
     	ArrayList<User> friendsWithName = new ArrayList<User>();
+        ArrayList<User> searchResults = friendsByName.searchByName(firstName, lastName);
+        for(int i = 0; i < searchResults.size(); i++) {
+            friendsWithName.add(searchResults.get(i));
+        }
     	// need to 
     	return friendsWithName;
     }

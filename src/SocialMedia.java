@@ -143,11 +143,12 @@ public class SocialMedia {
         }
     }
 
-    // View friends menu
+   // View friends menu
     private static void viewFriends(Scanner scanner) {
         System.out.println("\nView Friends:");
         System.out.println("1. View Friends Sorted by Name");
         System.out.println("2. Search by Friend Name");
+        System.out.println("3. Back to User Menu");
 
         System.out.print("Enter your choice: ");
         int choice = scanner.nextInt();
@@ -157,6 +158,8 @@ public class SocialMedia {
             case 1 -> {
             	System.out.println("Viewing friends sorted by name: ");
             	currentUser.viewFriendsAlphabetically();
+                scanner.nextLine();
+                viewFriends(scanner);
             }
             case 2 -> {
                 System.out.print("Enter friend's first name: ");
@@ -165,15 +168,22 @@ public class SocialMedia {
                 String friendLastName = scanner.nextLine();
                 ArrayList<User> currentFriendList;
                 currentFriendList = currentUser.searchFriendsByName(friendFirstName,friendLastName);
+                
                 System.out.println("Choose options: \n");
                 System.out.println("1. View these friends' profiles");
                 System.out.println("2. Remove any friends\n");
+                
                 int choice2 = scanner.nextInt();
                 scanner.nextLine();
 
                 switch(choice2){
 
-                    case 1 -> userManager.viewProfileOfFriendsInList(currentFriendList);
+                    case 1 -> {
+                        userManager.viewProfileOfFriendsInList(currentFriendList);
+                        scanner.nextLine();
+                        viewFriends(scanner);
+                    }
+
                     case 2 -> {
                         System.out.println("From the Friends(May include duplicate names) below, choose one to remove:\n");
 
@@ -186,11 +196,19 @@ public class SocialMedia {
 
                         scanner.nextLine();
 
-                        currentUser.removeFriend(removeId, userManager);
+                        if (removeId != -1) {
+                            currentUser.removeFriend(removeId, userManager);
+                        }
+                        viewFriends(scanner);
 
                     }
                 
+                    case 3 -> {
+                        userMenu(scanner);
+                    }
+
                     default -> System.out.println("Invalid choice. Returning to User Menu.");
+                    viewFriends(scanner);
                     
                 }
             }
@@ -204,7 +222,8 @@ public class SocialMedia {
         System.out.println("\nMake New Friends:");
         System.out.println("1. Search by Name");
         System.out.println("2. Search by Interest");
-        System.out.println("3. GetFriendRecommendations");
+        System.out.println("3. Get FriendRecommendations");
+        System.out.println("4. Back to User Menu");
         System.out.print("Enter your choice: ");
         int choice = scanner.nextInt();
         scanner.nextLine();
@@ -237,7 +256,8 @@ public class SocialMedia {
                     friendGraph.addFriend(currentUser.getId(), friendId);
 
                 }else{
-                // go back to make new friends tab
+                    makeNewFriends(scanner);
+                    // go back to make new friends tab
                 }
                 
             }
@@ -264,6 +284,7 @@ public class SocialMedia {
                     friendGraph.addFriend(currentUser.getId(), friendId);
 
                 }else{
+                    makeNewFriends(scanner);
 
                     //go back to make friends tab
                 }
@@ -298,11 +319,15 @@ public class SocialMedia {
                     friendGraph.addFriend(currentUser.getId(), friendId);
 
                 }else{
+                    makeNewFriends(scanner);
 
                     //back to make new friends tab
                 }
              
           
+            }
+            case 4 -> {
+                userMenu(scanner);
             }
             default -> System.out.println("Invalid choice. Returning to User Menu.");
         }

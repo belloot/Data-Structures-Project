@@ -36,43 +36,6 @@ public class UserManager {
     	return usersByName.getSize();
     }
 
-    /**
-     * Retrieves a user by their username.
-     *
-     * @param username The username to search for.
-     * @return The User object if found, otherwise null.
-     */
-    public User getUserByUsername(String username, String password, LoginHashTable loginTable) {
-                     // I think this method will need to use LoginTable to actually retrieve the User object. 
-        			 // LoginTable should have a method to retrieve a User object given username and password.
-        			 // Also this method probably needs another argument, String password, to make this happen.
-        			 // Will need to change main to accommodate for this
-        User userWanted = loginTable.getUser(username, password); // example
-        userWanted = usersByName.search(userWanted, fullNameCmp);
-        return userWanted;
-    }
-
-    /**
-     * Searches for users with the specified name.
-     *
-     * @param name The name to search for.
-     * @return A list of User objects with the specified name.
-     */
-    public ArrayList<User> searchUsersByName(String firstName, String lastName) {
-        return null; // Similar to the method above, I probably need LoginTable
-        			 // Also I need to add a BST method to be able to search 
-                     // for and return an ArrayList of Users
-    }
-    
-    // This method has been implemented inside InterestManager
-    public ArrayList<User> searchUsersByInterests(String interest){
-                     // Need an ArrayList<User> where each index in the ArrayList
-                     // corresponds to an Interest ID. Inside this index location will have
-        			 // a BST of users who share this specific Interest ID. 
-        			 // This ArrayList will be used to retrieve the correct User object
-        		     // Update: Kai has this method in InterestManager
-    }
-
     public User searchUserById(int id){
          // Need an ArrayList<User> where each index in the ArrayList
 		 // corresponds to a user ID. This ArrayList will be used to
