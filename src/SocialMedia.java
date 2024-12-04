@@ -201,20 +201,20 @@ public class SocialMedia {
 
     // Make new friends menu
     private static void makeNewFriends(Scanner scanner) {
-    boolean stayInMenu = true;
-    
-    while (stayInMenu) {
         System.out.println("\nMake New Friends:");
         System.out.println("1. Search by Name");
         System.out.println("2. Search by Interest");
-        System.out.println("3. GetFriendRecommendations");
-        System.out.println("4. Return to User Menu");
+        System.out.println("3. Get FriendRecommendations");
+        System.out.println("4. Back to User Menu");
         System.out.print("Enter your choice: ");
         int choice = scanner.nextInt();
         scanner.nextLine();
 
         switch (choice) {
             case 1 -> {
+                System.out.print("Enter name: ");
+                String name = scanner.nextLine();
+
                 System.out.print("Enter friend's first name: ");
                 String friendFirstName = scanner.nextLine();
                 System.out.print("Enter friend's Last name: ");
@@ -224,15 +224,24 @@ public class SocialMedia {
                 wantedFriendsList = userManager.searchUsersByName(friendFirstName,friendLastName);
 
                 //print all users in list
+
                 System.out.println("Type the id of the friend you want to add, -1 if none you want to add: \n");
+
                 int friendId = scanner.nextInt();
+
                 scanner.nextLine();
 
                 if(!(friendId == -1)){
+
                     currentUser.addFriend(userManager.searchUserById(friendId));
+
                     friendGraph.addFriend(currentUser, userManager.searchUserById(friendId));
+
+                }else{
+                    makeNewFriends(scanner);
+                    // go back to make new friends tab
                 }
-                // If -1, just continue the loop
+                
             }
             case 2 -> {
                 System.out.print("Enter interest: ");
@@ -240,39 +249,74 @@ public class SocialMedia {
 
                 ArrayList<User> wantedFriendsList;
                 wantedFriendsList = userManager.searchUsersByInterests(interest);
+
                 
                 //print all users in list
+
                 System.out.println("Type the id of the friend you want to add, -1 if none you want to add: \n");
+
                 int friendId = scanner.nextInt();
+
                 scanner.nextLine();
 
                 if(!(friendId == -1)){
+
                     currentUser.addFriend(userManager.searchUserById(friendId));
+
                     friendGraph.addFriend(currentUser, userManager.searchUserById(friendId));
+
+                }else{
+                    makeNewFriends(scanner);
+
+                    //go back to make friends tab
                 }
-                // If -1, just continue the loop
+             
+
             }
-            case 3 -> {
+               
+
+            case 3 ->{
+
                 System.out.print("Here are some friends we recommend to you:\n");
+                
+
                 ArrayList<User> wantedFriendsList;
+                // Khiem: we also need to pass in UserManager to access the BST with all users
                 wantedFriendsList = friendGraph.getRecommendations(currentUser, userManager);
 
                 //print the friends in list
+                // still need to implement (loop through wantedFriendsList and print out the ID and the name of the recommended person)
+
                 System.out.println("Type the id of the friend you want to add, -1 if none you want to add: \n");
+
                 int friendId = scanner.nextInt();
+
                 scanner.nextLine();
 
                 if(!(friendId == -1)){
+
                     currentUser.addFriend(userManager.searchUserById(friendId));
+
                     friendGraph.addFriend(currentUser, userManager.searchUserById(friendId));
+
+                }else{
+                    makeNewFriends(scanner);
+
+                    //back to make new friends tab
                 }
-                // If -1, just continue the loop
+             
+          
             }
-            case 4 -> stayInMenu = false;  // Exit the make friends menu
-            default -> System.out.println("Invalid choice. Please try again.");
+            case 4 -> {
+                userMenu(scanner);
+            }
+            default -> System.out.println("Invalid choice. Returning to User Menu.");
         }
+
     }
-}
+
+
+
     // Quit the application
     private static void quit() {
         System.out.println("Saving data...");
