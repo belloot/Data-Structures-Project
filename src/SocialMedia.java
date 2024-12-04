@@ -154,7 +154,10 @@ public class SocialMedia {
         scanner.nextLine();
 
         switch (choice) {
-            case 1 -> currentUser.viewFriendsAlphabetically();
+            case 1 -> {
+            	System.out.println("Viewing friends sorted by name: ");
+            	currentUser.viewFriendsAlphabetically();
+            }
             case 2 -> {
                 System.out.print("Enter friend's first name: ");
                 String friendFirstName = scanner.nextLine();
@@ -174,7 +177,8 @@ public class SocialMedia {
                     case 2 -> {
                         System.out.println("From the Friends(May include duplicate names) below, choose one to remove:\n");
 
-                        // khiem handles this part(print all friends in friendlist)
+                        // khiem handles this part(print all friends in friendlist) (DONE: one line below)
+                        userManager.viewProfileOfFriendsInList(currentFriendList);
 
                         System.out.println("Enter the id of the friend you want to remove:\n");
 
@@ -197,19 +201,20 @@ public class SocialMedia {
 
     // Make new friends menu
     private static void makeNewFriends(Scanner scanner) {
+    boolean stayInMenu = true;
+    
+    while (stayInMenu) {
         System.out.println("\nMake New Friends:");
         System.out.println("1. Search by Name");
         System.out.println("2. Search by Interest");
         System.out.println("3. GetFriendRecommendations");
+        System.out.println("4. Return to User Menu");
         System.out.print("Enter your choice: ");
         int choice = scanner.nextInt();
         scanner.nextLine();
 
         switch (choice) {
             case 1 -> {
-                System.out.print("Enter name: ");
-                String name = scanner.nextLine();
-
                 System.out.print("Enter friend's first name: ");
                 String friendFirstName = scanner.nextLine();
                 System.out.print("Enter friend's Last name: ");
@@ -219,23 +224,15 @@ public class SocialMedia {
                 wantedFriendsList = userManager.searchUsersByName(friendFirstName,friendLastName);
 
                 //print all users in list
-
                 System.out.println("Type the id of the friend you want to add, -1 if none you want to add: \n");
-
                 int friendId = scanner.nextInt();
-
                 scanner.nextLine();
 
                 if(!(friendId == -1)){
-
                     currentUser.addFriend(userManager.searchUserById(friendId));
-
                     friendGraph.addFriend(currentUser, userManager.searchUserById(friendId));
-
-                }else{
-                // go back to make new friends tab
                 }
-                
+                // If -1, just continue the loop
             }
             case 2 -> {
                 System.out.print("Enter interest: ");
@@ -243,67 +240,39 @@ public class SocialMedia {
 
                 ArrayList<User> wantedFriendsList;
                 wantedFriendsList = userManager.searchUsersByInterests(interest);
-
                 
                 //print all users in list
-
                 System.out.println("Type the id of the friend you want to add, -1 if none you want to add: \n");
-
                 int friendId = scanner.nextInt();
-
                 scanner.nextLine();
 
                 if(!(friendId == -1)){
-
                     currentUser.addFriend(userManager.searchUserById(friendId));
-
                     friendGraph.addFriend(currentUser, userManager.searchUserById(friendId));
-
-                }else{
-
-                    //go back to make friends tab
                 }
-             
-
+                // If -1, just continue the loop
             }
-               
-
-            case 3 ->{
-
+            case 3 -> {
                 System.out.print("Here are some friends we recommend to you:\n");
-                
-
                 ArrayList<User> wantedFriendsList;
-                wantedFriendsList = friendGraph.getRecommendations(currentUser);
+                wantedFriendsList = friendGraph.getRecommendations(currentUser, userManager);
 
                 //print the friends in list
-
                 System.out.println("Type the id of the friend you want to add, -1 if none you want to add: \n");
-
                 int friendId = scanner.nextInt();
-
                 scanner.nextLine();
 
                 if(!(friendId == -1)){
-
                     currentUser.addFriend(userManager.searchUserById(friendId));
-
                     friendGraph.addFriend(currentUser, userManager.searchUserById(friendId));
-
-                }else{
-
-                    //back to make new friends tab
                 }
-             
-          
+                // If -1, just continue the loop
             }
-            default -> System.out.println("Invalid choice. Returning to User Menu.");
+            case 4 -> stayInMenu = false;  // Exit the make friends menu
+            default -> System.out.println("Invalid choice. Please try again.");
         }
-
     }
-
-
-
+}
     // Quit the application
     private static void quit() {
         System.out.println("Saving data...");
