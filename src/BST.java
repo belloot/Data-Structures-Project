@@ -530,6 +530,30 @@ public class BST<T> {
     	}
     }
     
+    // Khiem's edit
+    /*
+     * Reversed in order traversal to collect users for ArrayList (highest values to lowest values)
+     * Wrapper
+     */
+    public void reversedInOrderTraversal(ArrayList<T> list) {
+    	reversedInOrderTraversal(root, list);
+    }
+    
+ // Khiem's edit
+    /*
+     * Reversed in order traversal to collect users for ArrayList (highest values to lowest values)
+     * Helper
+     */
+    public void reversedInOrderTraversal(Node node, ArrayList<T> list) {
+    	if(node == null) {
+    		return;
+    	} else {
+    		reversedInOrderTraversal(node.right, list);
+    		list.add(node.data);
+    		reversedInOrderTraversal(node.left, list);
+    	}
+    }
+    
 
     /**
      * Returns a String containing the data in post order.

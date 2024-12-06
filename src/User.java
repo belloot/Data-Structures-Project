@@ -236,6 +236,11 @@ public class User {
     public void incrementCredit(int value) {
     	friendCredit += value;
     }
+    
+    // reset this user's friend credit back to 0
+ 	public void resetFriendCredit() {
+ 		friendCredit = 0;
+ 	}
 
     /**
      * Adds a friend to the user's friend list.
@@ -349,27 +354,11 @@ public class User {
         	return false;
         } else {
         	User user = (User) obj;
-//        	if(user.getId() != this.id) {
-//        		return false;
-//        	}
-//        	return true;
-        	return this.userName.equals(user.userName) && this.password.equals(user.password); //Compare based on userName and password
+        	if(user.getId() != this.id) {
+        		return false;
+        	}
+        	return true;
         }
-    }
-    /////Kai's edit
-    /**
-     * Compares the if Users are equal
-     * by name or password
-     * 
-     * @param obj
-     * @return boolean
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof User)) return false;
-        User otherUser = (User) obj;
-        return this.userName.equals(otherUser.userName) && this.password.equals(otherUser.password);
     }
 
     public void removeFriend(int id) {
