@@ -87,6 +87,7 @@ public class FileManager {
 
                                 // Populate Interest Manager
                                 Integer numInterests = fileReader.nextInt();
+                                // might need to add an extra .nextLine() here
 
                                 for (int i = 0; i < numInterests; i++) {
 
@@ -104,6 +105,7 @@ public class FileManager {
 
                                         user.addInterest(actualInterest);
                                 }
+                             // might need to add an extra .nextLine() here
                         }
                         fileReader.close();
 

@@ -36,6 +36,8 @@ public class FriendGraph {
      * @param friend The friend to add.
      */
     public void addFriend(Integer id, Integer friendsId) {
+    	// probably need to check if there is already an undirected edge between these two IDs
+    	// if so, no need to do anything, if not, then add undirected edge
         friendGraph.addUndirectedEdge(id, friendsId);
     }
     
