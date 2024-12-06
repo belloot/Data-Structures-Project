@@ -78,11 +78,12 @@ public class FriendGraph {
         
         // updating friend recommendation credit for interests
         ArrayList<Interest> loggedInUserInterestList = user.getInterestsList();
-        for(int i = 0; i < loggedInUserInterestList.size(); i++) {
-        	for(int j = 0; j < potentialFriendsList.size(); j++) {
+        for(int i = 0; i < loggedInUserInterestList.size(); i++) { // track logged in user's interests
+        	Interest loggedInUserCurrentInterest = loggedInUserInterestList.get(i);
+        	
+        	for(int j = 0; j < potentialFriendsList.size(); j++) { // track potential friend's interests
         		ArrayList<Interest> potentialFriendInterestList = potentialFriendsList.get(j).getInterestsList();
         		// see if logged in user current interest exists inside potential friend's interest list
-        		Interest loggedInUserCurrentInterest = loggedInUserInterestList.get(i);
         		if(potentialFriendInterestList.indexOf(loggedInUserCurrentInterest) != -1) {
         			potentialFriendsList.get(j).incrementCredit(1);
         		}	
@@ -110,6 +111,11 @@ public class FriendGraph {
         
         // collect the sorted potential friends from BST into actual recommendations list
         potentialFriendsBST.reversedInOrderTraversal(recommendations);
+        
+        // reset every potential friend's credit value
+        for(int i = 0; i < potentialFriendsList.size(); i++) {
+        	potentialFriendsList.get(i).resetFriendCredit();
+        }
         
         return recommendations;
     }
