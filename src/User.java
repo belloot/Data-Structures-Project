@@ -265,9 +265,9 @@ public class User {
      * Displays the user's friends in alphabetical order.
      */
     public void viewFriendsAlphabetically() {
-    	System.out.println("Viewing friends alphabetically");
-    	System.out.println("Format is (ID). (First name) + (Last name)\n");
-    	System.out.print(friendsByName.inOrderString());
+    	System.out.println("Viewing friends alphabetically:");
+    	System.out.println("ID of friend is included after their name");
+    	friendsByName.inOrderStringPrint();
     }
 
     /**
@@ -311,19 +311,21 @@ public class User {
     	return friendsWithName;
     }
     
+    // print user's full profile
+    public void viewFullProfile() {
+    	System.out.println(firstName + " " + " (" + id + ")" + "\n");
+    	System.out.println("Interests: \n");
+    	System.out.println(interests.numberedListString());
+    	System.out.println("Friends:\n" + friendsByName.inOrderStringPrint());
+    }
+    
+    
     /**
-     * Creates a String of the current user information in the following format:
-     * (ID #). (First name) (Last name)
-     * 
-     * 
-     * Update this one to include more fields to output
+     * Basic profile of user
      */
     @Override
     public String toString() {
-    	StringBuilder result = new StringBuilder();
-    	result.append("" + id + ". " + firstName + " " + lastName + "\n" +
-    			"Interests:\n" + interests.numberedListString());
-    	return result.toString() + "\n";
+    	return firstName + " " + lastName + " (" + id + ")" + "\n";
     }
 
     /**

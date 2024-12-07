@@ -221,6 +221,27 @@ public class Graph {
     		edges++;
     	}
     }
+    
+    public void deleteUndirectedEdge(int u, int v)throws IndexOutOfBoundsException {
+    	
+    	if(u <= 0 || u > vertices) {
+    		throw new IndexOutOfBoundsException("addUndirectedEge: u is out of bounds");
+    	} else if(v <= 0 || v > vertices) {
+    		throw new IndexOutOfBoundsException("addUndirectedEge: v is out of bounds");
+    	}else {
+    		// delete v from u's LinkedList
+    		int indexOfV = adj.get(u).findIndex(v);
+    		adj.get(u).advanceIteratorToIndex(indexOfV);
+    		adj.get(u).removeIterator();
+    		
+    		// delete u from v's LinkedList
+    		int indexofU = adj.get(v).findIndex(u);
+    		adj.get(v).advanceIteratorToIndex(indexofU);
+    		adj.get(v).removeIterator();
+    		edges--;
+    	}
+    	
+    }
 
     /*** Additional Operations ***/
 

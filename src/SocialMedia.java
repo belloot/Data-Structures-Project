@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class SocialMedia {
@@ -32,6 +33,7 @@ public class SocialMedia {
      * through the hash table, then set the BST node to have the attributes of the
      * friend we just accessed
      * (what to do if duplicate values...?)`1vdvsv
+     * @throws FileNotFoundException 
      */
 
     public static void main(String[] args) {
@@ -44,7 +46,11 @@ public class SocialMedia {
         loginTable = new LoginHashTable();
 
         // Load data from the file
-        fileHandler.loadData(userManager, friendGraph, interestManager, loginTable, numCurrentUsers);
+        try {
+        	fileHandler.loadData(userManager, friendGraph, interestManager, loginTable, numCurrentUsers);
+        } catch (Exception e) {
+        	System.out.println("File not found");
+        }
 
         System.out.println("Welcome to the Social Media App!");
         boolean isRunning = true;
@@ -80,7 +86,7 @@ public class SocialMedia {
         String password = scanner.nextLine();
 
         if (loginTable.authenticate(username, password)) {
-            User currentUser = userManager.getUserByUsername(username);
+            User currentUser = loginTable.getUser(username, password);
             System.out.println("Login successful! Welcome, " + currentUser.getFirstName() + ".");
             userMenu(scanner);
         } else {
@@ -104,7 +110,7 @@ public class SocialMedia {
         InterestsArray = interestManager.createInterestArray(scanner);
 
         User currentUser = new User(userManager.getNumUsers() + 1, firstName, lastName, username, password, city,
-                InterestsrArray);// khien update this one
+                InterestsArray);// khien update this one
 
         userManager.addUser(currentUser);
         loginTable.addUser(username, password);
@@ -129,7 +135,7 @@ public class SocialMedia {
             scanner.nextLine();
 
             switch (choice) {
-                case 1 -> currentUser.toString();
+                case 1 -> currentUser.viewFullProfile();
                 case 2 -> viewFriends(scanner);
                 case 3 -> makeNewFriends(scanner);
                 case 4 -> {
@@ -197,6 +203,7 @@ public class SocialMedia {
 
                         if (removeId != -1) {
                             currentUser.removeFriend(removeId, userManager);// Remove this persion in friend graph
+                            friendGraph.removeFriend(currentUser.getId(), removeId);
                         }
                         viewFriends(scanner);
 
@@ -207,10 +214,9 @@ public class SocialMedia {
                         userMenu(scanner);
                     }
 
-                    default -> {System.out.println("Invalid choice. Returning to User Menu.\n.\n.\n.\nSuccessful!");}
-                    userManager(scanner);
-                    
-                }
+                    default -> {System.out.println("Invalid choice. Returning to User Menu.\n.\n.\n.\nSuccessful!");
+                    	userMenu(scanner);}
+                	}
             }
             
             default -> System.out.println("Invalid choice. Returning to User Menu.");
@@ -240,7 +246,7 @@ public class SocialMedia {
 
                 for (User user : wantedFriendsList) {
 
-                    System.out.println(user.toString());
+                    user.viewFullProfile();
 
                 }
 
@@ -314,7 +320,7 @@ public class SocialMedia {
 
                 for (User user : wantedFriendsList) {
 
-                    System.out.println(user.toString());
+                    user.viewFullProfile();
 
                 }
 
@@ -398,7 +404,7 @@ public class SocialMedia {
 
                 // print the friends in list
                 for (int i = 0; i < wantedFriendsList.size(); i++) {
-                    System.out.println(wantedFriendsList.get(i).toString());
+                    wantedFriendsList.get(i).viewFullProfile();
                 }
 
                 System.out.println("Type the id of the friend you want to add, -1 if none you want to add: \n");
@@ -470,7 +476,11 @@ public class SocialMedia {
     // Quit the application
     private static void quit() {
         System.out.println("Saving data...");
-        fileHandler.saveData(userManager, friendGraph, interestManager, loginTable);
+        try {
+        	fileHandler.saveData(userManager, friendGraph, interestManager, loginTable);
+        } catch(Exception e) {
+        	System.out.println("Error occurred while writing to file.");
+        }
         System.out.println("Goodbye!");
     }
 }

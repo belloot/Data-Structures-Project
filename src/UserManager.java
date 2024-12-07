@@ -82,7 +82,7 @@ public class UserManager {
     public void viewProfileOfFriendsInList(ArrayList<User> list) {
     	System.out.println("Viewing these friends' profiles: ");
     	for(int i = 0; i < list.size(); i++) {
-    		list.get(i).toString();
+    		list.get(i).viewFullProfile();
     	}
     }
     

@@ -119,7 +119,7 @@ public class FileManager {
                                 }
                         }
                 } else {
-                        System.out.println("File not found.");
+                        throw new FileNotFoundException("loadData: file not found");
                 }
         }
 
@@ -146,7 +146,6 @@ public class FileManager {
                         System.out.println("An error occurred while clearing the file: " + e.getMessage());
 
                 }
-                
                 
                 FileWriter writer = new FileWriter(filePath);
 

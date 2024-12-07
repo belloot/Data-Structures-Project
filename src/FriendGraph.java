@@ -42,6 +42,11 @@ public class FriendGraph {
     	}
     }
     
+    // remove a friend by changing the Graph network
+    public void removeFriend(int id, int removeId) {
+    	friendGraph.deleteUndirectedEdge(id, removeId);
+	}
+    
     /**
      * Checks if two users are friends.
      *

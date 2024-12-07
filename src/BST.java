@@ -507,6 +507,32 @@ public class BST<T> {
         }
     }
     
+    /**
+     * Returns the data with a new line in between each node's data
+     * @return a String of data in order
+     */
+    public String inOrderStringPrint() {
+        StringBuilder result = new StringBuilder();
+        inOrderString(root, result);
+        return result.toString() + "\n";
+    }
+
+    /**
+     * Helper method to inOrderStringPrint
+     * Inserts the data in order into a String in order.
+     * @param node the current Node
+     * @param inOrder a String containing the data
+     */
+    private void inOrderStringPrint(Node node, StringBuilder inOrder) {
+        if(node == null) {
+        	return;
+        } else {
+        	inOrderString(node.left, inOrder);
+        	inOrder.append(node.data + "\n");
+        	inOrderString(node.right, inOrder);
+        }
+    }
+    
     /////Kai's edit
     /**
      * Inorder traversal to collect users for ArrayList
