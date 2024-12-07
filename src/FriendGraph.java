@@ -36,9 +36,10 @@ public class FriendGraph {
      * @param friend The friend to add.
      */
     public void addFriend(Integer id, Integer friendsId) {
-    	// probably need to check if there is already an undirected edge between these two IDs
-    	// if so, no need to do anything, if not, then add undirected edge
-        friendGraph.addUndirectedEdge(id, friendsId);
+    	// check if an edge exists between these two already
+    	if(friendGraph.getAdjacencyList(id).findIndex(friendsId) == -1) {
+    		friendGraph.addUndirectedEdge(id, friendsId);
+    	}
     }
     
     /**
@@ -62,7 +63,7 @@ public class FriendGraph {
     	// take into consideration the distance between the recommendation and the user
     	// take into consideration if the recommendation and the user has one or more common interests
         
-        ArrayList<User> potentialFriendsList = new ArrayList<>(); // used to store potential friends (unranked)
+    	ArrayList<User> potentialFriendsList = new ArrayList<>(); // used to store potential friends (unranked)
         BST<User> potentialFriendsBST = new BST<>(); // used to order the potential friends based on credit system
         ArrayList<User> recommendations = new ArrayList<>(); // used to store actual recommendations (ranked)
         

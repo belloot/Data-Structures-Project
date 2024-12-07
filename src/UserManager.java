@@ -9,6 +9,8 @@ public class UserManager {
 	private BST<User> usersByName;
 	private ArrayList<User> usersIndexedById;
 	FullNameComparator fullNameCmp = new FullNameComparator();
+	
+	// test
 
     /**
      * Default constructor for UserManager.
