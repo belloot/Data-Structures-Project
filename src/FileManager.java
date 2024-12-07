@@ -186,7 +186,7 @@ public class FileManager {
 
                 }
                 
-                FileWriter writer = new FileWriter(filePath);
+                FileWriter writer = new FileWriter(filePath, true);
 
                 int numUsers = userManager.getNumUsers();
 
