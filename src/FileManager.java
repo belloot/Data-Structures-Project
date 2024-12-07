@@ -1,15 +1,12 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Comparator;
-import javax.sound.sampled.spi.AudioFileReader;
 
 /**
  * Handles file operations to load and save user data, friends, and interests.

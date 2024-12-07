@@ -6,7 +6,6 @@
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.NoSuchElementException;
-import java.util.ArrayList;
 
 public class BST<T> {
     private class Node {
