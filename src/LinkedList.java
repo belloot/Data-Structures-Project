@@ -354,6 +354,7 @@ public class LinkedList<T> {
      * @return true if element found, false otherwise.
      */
     public boolean contains(T data) {
+    	//System.out.println("Inside linkedlist");
         Node temp = first;
         while (temp != null) {
             if (temp.data.equals(data)) {

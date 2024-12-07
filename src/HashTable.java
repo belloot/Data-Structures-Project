@@ -53,7 +53,7 @@ public class HashTable<T> {
     /** Accessors */
 
     /**
-     * 1Returns the hash value in the table for a given Object.
+     * Returns the hash value in the table for a given Object.
      * 
      * @param obj the Object
      * @return the index in the table
@@ -88,6 +88,17 @@ public class HashTable<T> {
      */
     public int getNumElements() {
         return numElements;
+    }
+    
+    
+    //  get number of buckets inside HashTable
+    public int getNumBuckets() {
+    	return table.size();
+    }
+    
+    // get the element at that bucket (assume good HashTable)
+    public LinkedList<T> getBucket(int bucket) {
+    	return table.get(bucket);
     }
 
     /**

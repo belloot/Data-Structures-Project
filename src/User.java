@@ -64,6 +64,7 @@ public class User {
     	this.password = password;
     	this.city = city;
     	friendsByName = new BST<>();
+    	interests = new LinkedList<Interest>();
     	for(int i = 0; i < interestsArray.size(); i++) {
     		addInterest(interestsArray.get(i));
     	}
@@ -90,8 +91,8 @@ public class User {
      * @param id the user id
      */
     public User() {
-    	this.firstName = "tempUser";
-    	this.lastName = "tempUser"; 	
+    	this.firstName = null;
+    	this.lastName = null; 	
     }
 
     /**
@@ -133,6 +134,9 @@ public class User {
         this.userName = userName;
         
         this.password = passWord;
+        
+        friendsByName = new BST<>();
+        interests = new LinkedList<>();
 		
 	}
 
@@ -216,9 +220,13 @@ public class User {
      * @param interest The interest to add.
      */
     public void addInterest(Interest interest) {
-    	if(!interests.contains(interest)) {
+    	//System.out.println("if");
+    	//System.out.println(interests.getLength());
+    	if(!(interests.contains(interest))) {
+    		//System.out.println("if");
     		interests.addLast(interest);
     	}
+    	//System.out.println("if 2");
     }
     
     // updates city
@@ -313,10 +321,16 @@ public class User {
     
     // print user's full profile
     public void viewFullProfile() {
-    	System.out.println(firstName + " " + " (" + id + ")" + "\n");
+    	System.out.println("reached view profile");
+    	System.out.println(firstName + " " + lastName + " (" + id + ")" + "\n");
     	System.out.println("Interests: \n");
     	System.out.println(interests.numberedListString());
-    	System.out.println("Friends:\n" + friendsByName.inOrderStringPrint());
+    	
+    	if(friendsByName.getSize() == 0) {
+    		System.out.println("You currently don't have any friends! Go add some");
+    	} else {
+    		System.out.println("Friends:\n" + friendsByName.inOrderStringPrint());
+    	}
     }
     
     

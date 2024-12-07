@@ -16,7 +16,7 @@ public class FriendGraph {
     private CreditComparator creditCmp = new CreditComparator();
     
     public FriendGraph() {
-    	
+    	friendGraph = new Graph(20);
     }
     
     public FriendGraph(UserManager userManager, Integer numCurrentUsers) {
@@ -38,6 +38,7 @@ public class FriendGraph {
     public void addFriend(Integer id, Integer friendsId) {
     	// check if an edge exists between these two already
     	if(friendGraph.getAdjacencyList(id).findIndex(friendsId) == -1) {
+    		//System.out.println("reached addfriend");
     		friendGraph.addUndirectedEdge(id, friendsId);
     	}
     }

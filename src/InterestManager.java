@@ -15,7 +15,7 @@ public class InterestManager {
      * Default constructor for InterestManager.
      */
     public InterestManager() {
-    	interestTable = new HashTable<>(10);
+    	interestTable = new HashTable<>(200);
     	usersByInterest = new ArrayList<>();
     }
     

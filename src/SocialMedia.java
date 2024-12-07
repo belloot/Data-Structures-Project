@@ -86,7 +86,7 @@ public class SocialMedia {
         String password = scanner.nextLine();
 
         if (loginTable.authenticate(username, password)) {
-            User currentUser = loginTable.getUser(username, password);
+            currentUser = loginTable.getUser(username, password);
             System.out.println("Login successful! Welcome, " + currentUser.getFirstName() + ".");
             userMenu(scanner);
         } else {
@@ -109,11 +109,11 @@ public class SocialMedia {
         ArrayList<Interest> InterestsArray;
         InterestsArray = interestManager.createInterestArray(scanner);
 
-        User currentUser = new User(userManager.getNumUsers() + 1, firstName, lastName, username, password, city,
-                InterestsArray);// khien update this one
+        currentUser = new User(userManager.getNumUsers() + 1, firstName, lastName, username, password, city,
+                InterestsArray);
 
         userManager.addUser(currentUser);
-        loginTable.addUser(username, password);
+        loginTable.addUser(currentUser);
 
         System.out.println("Account created successfully! You are now logged in.");
         numCurrentUsers++;

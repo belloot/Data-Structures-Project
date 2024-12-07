@@ -9,7 +9,7 @@ public class LoginHashTable {
      * Default constructor for LoginHashTable.
      */
     public LoginHashTable() {
-    	loginTable = new HashTable<>(15); //Size 10, suitable size? Might need more for when we create new account
+    	loginTable = new HashTable<>(200); //Size 10, suitable size? Might need more for when we create new account
     }
 
     /**
@@ -20,8 +20,28 @@ public class LoginHashTable {
      * @return True if the credentials are valid, otherwise false.
      */
     public boolean authenticate(String username, String password) {
-        User user = new User(username, password); //need default constructor for user for name and pass
-        return loginTable.contains(user); //check if loginTable contains user
+        User user = findCorrectUser(username, password);
+        if(user.getFirstName() == null && user.getLastName() == null) {
+        	return false;
+        } else {
+        	return true;
+        }
+    }
+    
+    // finding the correct user
+    public User findCorrectUser(String username, String password) {
+    	User user = new User(username, password);
+    	int bucket = user.hashCode() % loginTable.getNumBuckets();
+    	LinkedList<User> listAtBucket = loginTable.getBucket(bucket);
+    	for(int i = 0; i < listAtBucket.getLength(); i++) {
+    		listAtBucket.advanceIteratorToIndex(i);
+    		User currUser = listAtBucket.getIterator();
+    		if(currUser.getUsername().equals(username) && currUser.getPassword().equals(password)) {
+    			return currUser; // actual correct user
+    		}
+    	}
+    	user = new User();
+    	return user; // never ever reached based on how we wrote the program
     }
 
     /**
@@ -40,17 +60,13 @@ public class LoginHashTable {
     	loginTable.add(user);
     }
     
-    /**
-     * Retrieves full User after authentication
-     * 
-     */
-    public User getUser(User user) {
-    	return loginTable.get(user);
+    public User getUser(String username, String password) {
+    	return findCorrectUser(username, password);
     }
     
-    public User getUser(String username, String password) {
-    	User user = new User(username, password);
-    	return loginTable.get(user);
+    
+    public String toString() {
+    	return loginTable.rowToString();
     }
 }
 

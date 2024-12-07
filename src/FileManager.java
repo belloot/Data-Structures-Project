@@ -35,11 +35,11 @@ public class FileManager {
                 IdComparator IdCmp = new IdComparator(); // maybe no need it in here
                 File file = new File("NFLPlayers.txt"); // Adjust the file path if needed
                 if (file.exists()) {
-                		System.out.println("Reached important");
+                		//System.out.println("Reached important");
                         Scanner fileReader = new Scanner(file);
 
                         while (fileReader.hasNextLine()) {
-                        	System.out.println("HERE");
+                        	//System.out.println("HERE");
                                 numCurrentUsers++;
                                 // get id
                                 Integer Id = fileReader.nextInt();
@@ -51,6 +51,8 @@ public class FileManager {
                                 String firstName = fileReader.next();
 
                                 String lastName = fileReader.next();
+                                
+                                //System.out.println(firstName + lastName);
 
                                 fileReader.nextLine();
                                 // get Username and Password
@@ -58,24 +60,34 @@ public class FileManager {
                                 String userName = fileReader.nextLine();
 
                                 String passWord = fileReader.nextLine();
+                                
+                                //System.out.println(userName + passWord);
 
                                 // Populate loginTable and userManager
 
                                 User user = new User(Id, firstName, lastName, userName, passWord);
+                                //System.out.println(user.toString());
 
                                 loginTable.addUser(user);
 
                                 userManager.addUser(user);
+                                
+                                //System.out.println(user.toString());
 
                                 // Populate FriendGraph
 
                                 Integer numFriends = fileReader.nextInt();
+                                
+                                //System.out.println(numFriends);
 
                                 fileReader.nextLine();
 
                                 for (int i = 0; i < numFriends; i++) {
-
-                                        friendGraph.addFriend(Id, fileReader.nextInt());
+                                		//System.out.println(i);
+                                		
+                                		int idToAdd = fileReader.nextInt();
+                                		
+                                        friendGraph.addFriend(Id, idToAdd);
 
                                         fileReader.nextLine();
                                 }
@@ -83,6 +95,7 @@ public class FileManager {
                                 // Update User City
 
                                 user.updateCity(fileReader.nextLine());
+                                
 
                                 // Populate Interest Manager
                                 Integer numInterests = fileReader.nextInt();
@@ -91,18 +104,30 @@ public class FileManager {
                                 for (int i = 0; i < numInterests; i++) {
 
                                         // populating Interest Manager
+                                	
                                         String currentInterestName = fileReader.nextLine();
+                                        //System.out.println("Current interest name: " + currentInterestName);
 
                                         interestManager.addInterest(currentInterestName);
+                                        
+                                        //System.out.println("finished adding current interest");
 
                                         interestManager.addUserInterest(user, currentInterestName);
+                                        //System.out.println("interest table: " + interestManager.getInterestTable());
+                                        
+                                        //System.out.println("finished adding current interest");
 
                                         // populating LinkedList<Interest> of each user
-                                        Interest tempInterest = new Interest(0, currentInterestName);
+                                        Interest tempInterest = new Interest(-1, currentInterestName);
+                                        
+                                        //System.out.println("finished adding current interest");
 
                                         Interest actualInterest = interestManager.getInterestTable().get(tempInterest);
+                                        //System.out.println(actualInterest.getInterest());
+                                        //System.out.println("after actual interest");
 
                                         user.addInterest(actualInterest);
+                                        //System.out.println("asdf");
                                 }
                         }
                         
@@ -118,8 +143,20 @@ public class FileManager {
                                         // start populating current user's BST of friends
                                         User friend = userManager.searchUserById(adj_list.getIterator());
                                         userManager.searchUserById(i).getFriendsBST().insert(friend, fullNameCmp);
+                                        adj_list.advanceIterator();
                                 }
                         }
+                        
+                        
+                        //System.out.println("Finished reading: " + userManager.getNumUsers());
+                        //System.out.println("Finished reading graph:\n" + friendGraph.getFriendGraph());
+                        //System.out.println("Finished reading login table: \n" + loginTable.toString());
+                        //System.out.println(numCurrentUsers);
+                        
+                        
+                        //ArrayList<User> test = userManager.getAllUsers();
+                        //System.out.println(test.size());
+                        
                 } else {
                         throw new FileNotFoundException("loadData: file not found");
                 }
