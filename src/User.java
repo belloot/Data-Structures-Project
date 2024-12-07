@@ -253,6 +253,8 @@ public class User {
     }
     
     // remove a friend
+
+    // Also need to remove from friend from friend graph
     public void removeFriend(int id, UserManager userManager) {
     	FullNameComparator nameCmp = new FullNameComparator();
     	User friendToRemove = userManager.searchUserById(id);
@@ -312,6 +314,9 @@ public class User {
     /**
      * Creates a String of the current user information in the following format:
      * (ID #). (First name) (Last name)
+     * 
+     * 
+     * Update this one to include more fields to output
      */
     @Override
     public String toString() {
