@@ -360,10 +360,6 @@ public class User {
         	return true;
         }
     }
-
-    public void removeFriend(int id) {
-
-    }
     
     class FullNameComparator implements Comparator<User> {
         /**
