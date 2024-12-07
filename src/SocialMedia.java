@@ -49,7 +49,7 @@ public class SocialMedia {
         try {
         	fileHandler.loadData(userManager, friendGraph, interestManager, loginTable, numCurrentUsers);
         } catch (Exception e) {
-        	System.out.println("File not found");
+        	System.out.println("File not founds");
         }
 
         System.out.println("Welcome to the Social Media App!");

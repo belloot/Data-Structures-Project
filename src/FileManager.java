@@ -35,9 +35,11 @@ public class FileManager {
                 IdComparator IdCmp = new IdComparator(); // maybe no need it in here
                 File file = new File("NFLPlayers.txt"); // Adjust the file path if needed
                 if (file.exists()) {
+                		System.out.println("Reached important");
                         Scanner fileReader = new Scanner(file);
 
                         while (fileReader.hasNextLine()) {
+                        	System.out.println("HERE");
                                 numCurrentUsers++;
                                 // get id
                                 Integer Id = fileReader.nextInt();
@@ -84,7 +86,7 @@ public class FileManager {
 
                                 // Populate Interest Manager
                                 Integer numInterests = fileReader.nextInt();
-                                // might need to add an extra .nextLine() here
+                                fileReader.nextLine(); // maybe remove
 
                                 for (int i = 0; i < numInterests; i++) {
 
@@ -102,8 +104,8 @@ public class FileManager {
 
                                         user.addInterest(actualInterest);
                                 }
-                             // might need to add an extra .nextLine() here
                         }
+                        
                         fileReader.close();
 
                         // populating friends BST of each user

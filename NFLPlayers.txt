@@ -1,0 +1,196 @@
+1
+Peyton Manning
+PeytonM18
+peytonm
+4
+2
+3
+4
+14
+Denver
+2
+football
+basketball
+2
+Tyreek Hill
+TyreekFastHill
+tyreekh
+3
+1
+5
+6
+Miami
+3
+football
+golf
+hiking
+3
+Tom Brady
+BradyTheQB
+tomb
+3
+1
+7
+8
+Chicago
+2
+fishing
+basketball
+4
+Patrick Mahomes
+Patty15Mahomes
+patrickm
+3
+1
+9
+10
+Kansas City
+3
+cooking
+football
+tennis
+5
+Ray Lewis
+RavenLewis52
+rayl
+3
+2
+11
+12
+Baltimore
+4
+football
+basketball
+fishing
+hiking
+6
+Aaron Rodgers
+GreenBayRodgers
+aaronr
+3
+2
+13
+14
+Houston
+3
+snowboarding
+dogs
+cats
+7
+Travis Kelce
+TravisFootball
+travisk
+3
+3
+15
+8
+Los Angeles
+5
+dogs
+cats
+football
+basketball
+snowboarding
+8
+Larry Fitzgerald
+LarryTheCardinal
+larryf
+3
+3
+7
+9
+Phoenix
+2
+guitar
+soccer
+9
+Troy Polamalu
+TroyTheSteeler
+troyp
+3
+4
+8
+10
+Honolulu
+3
+basketball
+snowboarding
+fishing
+10
+Drew Brees
+Drew9Brees
+drewb
+3
+4
+9
+12
+New Orleans
+2
+cooking
+dogs
+11
+Drew Brees
+Brees9Drew
+drewb2
+3
+5
+13
+15
+Atlanta
+2
+cats
+hiking
+12
+Randy Moss
+Moss84
+randym
+3
+5
+10
+13
+San Francisco
+3
+football
+guitar
+cooking
+13
+Calvin Johnson
+CalvinTheLion
+calvinj
+3
+6
+12
+11
+Detroit
+2
+tennis
+soccer
+14
+Ed Reed
+EddyReedy
+edr
+3
+6
+15
+1
+Seattle
+4
+football
+soccer
+basketball
+fishing
+15
+Joe Montana
+JoeyMontana
+joem
+3
+7
+14
+11
+Portland
+5
+football
+cooking
+guitar
+fishing
+snowboarding
