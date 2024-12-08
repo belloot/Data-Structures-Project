@@ -11,6 +11,8 @@ public class SocialMedia {
     private static User currentUser; // Tracks the logged-in user 13e12
     private static Scanner scanner = new Scanner(System.in);
     public static int numCurrentUsers = 0;
+    public static boolean isRunning;
+    public static boolean isLoggedIn;
 
     // TESTING (Khiem 2:44 PM)
     // TESTING (Khiem 2:52 PM)
@@ -51,11 +53,18 @@ public class SocialMedia {
         } catch (Exception e) {
         	System.out.println("File not founds");
         }
+        isRunning = true;
 
-        System.out.println("Welcome to the Social Media App!");
-        boolean isRunning = true;
+        mainMenu();
+
+        scanner.close();
+    }
+
+    private static void mainMenu(){
+        
 
         while (isRunning) {
+            System.out.println("Welcome to the Social Media App!");
             System.out.println("\nMain Menu:");
             System.out.println("1. Login");
             System.out.println("2. Create a New Account");
@@ -70,12 +79,11 @@ public class SocialMedia {
                 case 3 -> {
                     quit();
                     isRunning = false;
+                    break;
                 }
                 default -> System.out.println("Invalid choice. Please try again.");
             }
         }
-
-        scanner.close();
     }
 
     // Handles user login
@@ -88,6 +96,7 @@ public class SocialMedia {
         if (loginTable.authenticate(username, password)) {
             currentUser = loginTable.getUser(username, password);
             System.out.println("Login successful! Welcome, " + currentUser.getFirstName() + ".");
+            isLoggedIn = true;
             userMenu(scanner);
         } else {
             System.out.println("Invalid username or password. Please try again.");
@@ -117,12 +126,13 @@ public class SocialMedia {
 
         System.out.println("Account created successfully! You are now logged in.");
         numCurrentUsers++;
+        isLoggedIn = true;
         userMenu(scanner);
     }
 
     // Menu for logged-in users
     private static void userMenu(Scanner scanner) {
-        boolean isLoggedIn = true;
+        
 
         while (isLoggedIn) {
             System.out.println("\nUser Menu:");
@@ -142,6 +152,9 @@ public class SocialMedia {
                     currentUser = null;
                     isLoggedIn = false;
                     System.out.println("You have been logged out.");
+                    mainMenu();
+                    break;
+
                 }
                 default -> System.out.println("Invalid choice. Please try again.");
             }
@@ -167,6 +180,7 @@ public class SocialMedia {
 
                 System.out.println("\nGoing Back to ViewFriends\n.\n.\n.\nSuccessful!\n");
                 viewFriends(scanner);
+                break;
             }
             case 2 -> {
                 System.out.print("Enter friend's first name: ");
@@ -200,6 +214,8 @@ public class SocialMedia {
                         userManager.viewProfileOfFriendsInList(currentFriendList);
                       
                         viewFriends(scanner);
+
+                        break;
                     }
 
                     case 2 -> {
@@ -235,6 +251,8 @@ public class SocialMedia {
                         }
                         viewFriends(scanner);
 
+                        break;
+
                     }
                 
                     case 3 -> {
@@ -245,6 +263,8 @@ public class SocialMedia {
                     default -> {System.out.println("Invalid choice. Returning to User Menu.\n.\n.\n.\nSuccessful!");
                     	userMenu(scanner);}
                 	}
+
+                    break;
             }
             case 3 ->{
                 System.out.println("\nGoing Back to UserMenu\n.\n.\n.\nSuccessful!\n");
@@ -309,16 +329,17 @@ public class SocialMedia {
                         idValidation = true;
 
                     }
+                }
 
+                for (User user : wantedFriendsList){
+                    
                     if (!(friendGraph.areFriends(currentUser, user))) {
 
-                        areFriendsValidation = false;
+                    areFriendsValidation = false;
 
-                        break;
+                    break;
 
                     }
-
-
                 }
                 //System.out.println("idValidation: "+ idValidation + " areFriendsValidtaion: " + ar);
 
@@ -355,6 +376,8 @@ public class SocialMedia {
                     makeNewFriends(scanner);
 
                 }
+
+                break;
 
             }
             case 2 -> {
@@ -400,17 +423,23 @@ public class SocialMedia {
                         idValidation = true;
 
                     }
+                }
 
+                for (User user : wantedFriendsList){
+                    
                     if (!(friendGraph.areFriends(currentUser, user))) {
 
-                        areFriendsValidation = false;
+                    areFriendsValidation = false;
 
-                        break;
+                    break;
 
                     }
-
-
                 }
+
+                    
+                
+
+                System.out.println("idValidation: "+ idValidation + " areFriendsValidtaion: " + areFriendsValidation);
 
                 if (idValidation && (!areFriendsValidation)) {
 
@@ -443,6 +472,8 @@ public class SocialMedia {
                     makeNewFriends(scanner);
 
                 }
+
+                break;
 
             }
 
@@ -503,16 +534,17 @@ public class SocialMedia {
                         idValidation = true;
 
                     }
+                }
 
+                for (User user : wantedFriendsList){
+                    
                     if (!(friendGraph.areFriends(currentUser, user))) {
 
-                        areFriendsValidation = false;
+                    areFriendsValidation = false;
 
-                        break;
+                    break;
 
                     }
-
-
                 }
 
                 if (idValidation && (!areFriendsValidation)) {
@@ -540,12 +572,17 @@ public class SocialMedia {
 
                 }
 
+                break;
+
             }
             case 4 -> {
 
                 System.out.println("\nGoing back to UserMenu\n.\n.\n.Successful!\n");
 
                 userMenu(scanner);
+
+                break;
+
             }
             default -> System.out.println("Invalid choice. Returning to User Menu.");
         }
