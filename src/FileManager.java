@@ -1,12 +1,10 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Scanner;
 
 /**
  * Handles file operations to load and save user data, friends, and interests.
@@ -190,9 +188,13 @@ public class FileManager {
 
                 int numUsers = userManager.getNumUsers();
 
-                for(int user = 0; user < numUsers; user++){
+                for(int user = 1; user <= numUsers; user++){
+
+                        //System.out.println("enters the loop");
 
                         //Save Name
+
+                        writer.write(user + "\n");
 
                         String firstName = userManager.getAllUsers().get(user).getFirstName();
 
@@ -200,21 +202,23 @@ public class FileManager {
 
                         String fullName = firstName + " " + lastName;
 
-                        System.out.println(fullName+"\n");
+                        //System.out.println(fullName+"\n");
 
                         writer.write(fullName+"\n");
+
+                        //System.out.println("enters the loop2");
 
                         //Save UserName and Password
 
                         String userName = userManager.getAllUsers().get(user).getUsername();
 
-                        System.out.println(userName + "\n");
+                        //System.out.println(userName + "\n");
 
                         writer.write(userName+"\n");
 
                         String passWord = userManager.getAllUsers().get(user).getPassword();
 
-                        System.out.println(passWord + "\n");
+                        //System.out.println(passWord + "\n");
 
                         writer.write(passWord+"\n");
 
@@ -222,9 +226,9 @@ public class FileManager {
 
                         int numFriends = userManager.getAllUsers().get(user).getFriendsBST().getSize();
 
-                        System.out.println(numFriends + "\n");
+                        //System.out.println(numFriends + "\n");
 
-                        writer.write(numFriends +"\n");
+                        writer.write(numFriends + "\n");
 
                         ArrayList<User> listOfFriends = new ArrayList();
 
@@ -232,9 +236,9 @@ public class FileManager {
 
                         for(int friend = 0; friend < numFriends; friend++){
 
-                                System.out.println(listOfFriends.get(friend) + "\n");
+                                //System.out.println(listOfFriends.get(friend).getId() +"\n");
 
-                                writer.write(listOfFriends.get(friend)+"\n");
+                                writer.write(listOfFriends.get(friend).getId() + "\n");
 
                         }
 
@@ -242,7 +246,7 @@ public class FileManager {
 
                         String city = userManager.getAllUsers().get(user).getCity();
 
-                        System.out.println(city + "\n");
+                        //System.out.println(city + "\n");
 
                         writer.write(city +"\n");
 
@@ -250,7 +254,7 @@ public class FileManager {
 
                         int numInterests = userManager.getAllUsers().get(user).getInterestsList().size();
 
-                        System.out.println(numInterests + "\n");
+                       // System.out.println(numInterests + "\n");
 
                         writer.write(numInterests +"\n");
 
@@ -260,7 +264,7 @@ public class FileManager {
  
                                 String inter = listOfInterests.get(interest).getInterest();
 
-                                System.out.println(inter + "\n");
+                                //System.out.println(inter + "\n");
 
                                 writer.write(inter +"\n");
 

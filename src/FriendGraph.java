@@ -122,9 +122,9 @@ public class FriendGraph {
         potentialFriendsBST.reversedInOrderTraversal(recommendations);
         
         // reset every potential friend's credit value
-        for(int i = 0; i < potentialFriendsList.size(); i++) {
-        	potentialFriendsList.get(i).resetFriendCredit();
-        }
+        //for(int i = 0; i < potentialFriendsList.size(); i++) {
+        	//potentialFriendsList.get(i).resetFriendCredit();
+        //}
         
         return recommendations;
     }

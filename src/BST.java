@@ -514,7 +514,7 @@ public class BST<T> {
     public String inOrderStringPrint() {
         StringBuilder result = new StringBuilder();
         inOrderString(root, result);
-        return result.toString() + "\n";
+        return result.toString();
     }
 
     /**
@@ -528,7 +528,7 @@ public class BST<T> {
         	return;
         } else {
         	inOrderString(node.left, inOrder);
-        	inOrder.append(node.data + "\n");
+        	inOrder.append(node.data + "\n\n");
         	inOrderString(node.right, inOrder);
         }
     }
@@ -724,7 +724,7 @@ public class BST<T> {
             return;
         }
         User user = (User) node.data;  // Cast T to User since we know we're storing User objects
-        if (user.getFirstName().equals(firstName) && user.getLastName().equals(lastName)) {
+        if (user.getFirstName().toLowerCase().equals(firstName.toLowerCase()) && user.getLastName().toLowerCase().equals(lastName.toLowerCase())) {
         result.add(user);
         }
         searchByNameHelper(node.left, firstName, lastName, result);

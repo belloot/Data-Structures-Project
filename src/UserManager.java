@@ -49,9 +49,8 @@ public class UserManager {
         //return null; // Similar to the method above, I probably need LoginTable
         			 // Also I need to add a BST method to be able to search 
                      // for and return an ArrayList of Users
-    	ArrayList<User> searchMatches = new ArrayList<>();
-    	User tempUser = new User(firstName, lastName);
-    	usersByName.searchAll(tempUser, fullNameCmp, searchMatches);
+    	ArrayList<User> searchMatches;
+    	searchMatches = usersByName.searchByName(firstName, lastName);
     	return searchMatches;
     }
 

@@ -275,7 +275,7 @@ public class User {
     public void viewFriendsAlphabetically() {
     	System.out.println("Viewing friends alphabetically:");
     	System.out.println("ID of friend is included after their name");
-    	friendsByName.inOrderStringPrint();
+    	System.out.print(friendsByName.inOrderStringPrint());
     }
 
     /**
@@ -321,7 +321,7 @@ public class User {
     
     // print user's full profile
     public void viewFullProfile() {
-    	System.out.println("reached view profile");
+    	//System.out.println("reached view profile");
     	System.out.println(firstName + " " + lastName + " (" + id + ")" + "\n");
     	System.out.println("Interests: \n");
     	System.out.println(interests.numberedListString());
@@ -340,6 +340,12 @@ public class User {
     @Override
     public String toString() {
     	return firstName + " " + lastName + " (" + id + ")" + "\n";
+    }
+
+    public String getProfileWithFriendCredit(){
+
+        return firstName + " " + lastName + " (" + id + ")" + " Friend Credit: " +friendCredit + "\n";
+        
     }
 
     /**

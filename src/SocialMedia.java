@@ -1,6 +1,6 @@
-import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class SocialMedia {
     private static UserManager userManager; // Manages users (BST)
@@ -161,22 +161,35 @@ public class SocialMedia {
 
         switch (choice) {
             case 1 -> {
-            	System.out.println("Viewing friends sorted by name: ");
+            	//System.out.println("Viewing friends sorted by name: ");
             	currentUser.viewFriendsAlphabetically();
-                scanner.nextLine();
+                //scanner.nextLine();
+
+                System.out.println("\nGoing Back to ViewFriends\n.\n.\n.\nSuccessful!\n");
                 viewFriends(scanner);
             }
             case 2 -> {
                 System.out.print("Enter friend's first name: ");
-                String friendFirstName = scanner.nextLine();
+                String friendFirstName = scanner.nextLine().trim();
                 System.out.print("Enter friend's Last name: ");
-                String friendLastName = scanner.nextLine();
+                String friendLastName = scanner.nextLine().trim();
                 ArrayList<User> currentFriendList;
                 currentFriendList = currentUser.searchFriendsByName(friendFirstName,friendLastName);
+
+                if(currentFriendList.size() == 0){
+
+                    System.out.println("Sorry, no mathching friends, try again!");
+
+                    System.out.println("\nGoing Back to ViewFriends\n.\n.\n.\nSuccessful!\n");
+
+                    viewFriends(scanner);
+
+                }
                 
+                //System.out.println(currentFriendList.size());
                 System.out.println("Choose options: \n");
                 System.out.println("1. View these friends' profiles(May contain duplicates)");
-                System.out.println("2. Remove any friends\n");
+                System.out.println("2. Remove any friends with this name (will print out all friends with this name)\n");
                 
                 int choice2 = scanner.nextInt();
                 scanner.nextLine();
@@ -185,7 +198,7 @@ public class SocialMedia {
 
                     case 1 -> {
                         userManager.viewProfileOfFriendsInList(currentFriendList);
-                        scanner.nextLine();
+                      
                         viewFriends(scanner);
                     }
 
@@ -201,9 +214,24 @@ public class SocialMedia {
 
                         scanner.nextLine();
 
-                        if (removeId != -1) {
+                        boolean removeValidation = false;
+
+                        for(User user : currentFriendList){
+                            if(user.getId() == removeId){
+                                removeValidation = true;
+                            }
+                        }
+
+                        if (removeValidation == true) {
                             currentUser.removeFriend(removeId, userManager);// Remove this persion in friend graph
                             friendGraph.removeFriend(currentUser.getId(), removeId);
+                            System.out.println("Friend successfully removed!");
+                            System.out.println("\nGoing Back to ViewFriends\n.\n.\n.\nSuccessful!\n");
+
+                        } else {
+                            System.out.println("The ID you entered was not displayed!");
+                            System.out.println("\nGoing Back to ViewFriends\n.\n.\n.\nSuccessful!\n");
+
                         }
                         viewFriends(scanner);
 
@@ -218,6 +246,9 @@ public class SocialMedia {
                     	userMenu(scanner);}
                 	}
             }
+            case 3 ->{
+                System.out.println("\nGoing Back to UserMenu\n.\n.\n.\nSuccessful!\n");
+                userMenu(scanner);}
             
             default -> System.out.println("Invalid choice. Returning to User Menu.");
         }
@@ -243,10 +274,21 @@ public class SocialMedia {
 
                 ArrayList<User> wantedFriendsList;
                 wantedFriendsList = userManager.searchUsersByName(friendFirstName, friendLastName);
+                //System.out.println(wantedFriendsList.size());
+
+                if(wantedFriendsList.size() == 0){
+
+                    System.out.println("Nobody has that Name!");
+
+                    System.out.println("\nGoing back to makeNewFriends Tab\n.\n.\n.Successful!\n");
+
+                    makeNewFriends(scanner);
+
+                }
 
                 for (User user : wantedFriendsList) {
 
-                    user.viewFullProfile();
+                    System.out.println(user);
 
                 }
 
@@ -258,7 +300,7 @@ public class SocialMedia {
 
                 boolean idValidation = false;
 
-                boolean areFriendsValidation = false;
+                boolean areFriendsValidation = true;
 
                 for (User user : wantedFriendsList) {
 
@@ -268,19 +310,25 @@ public class SocialMedia {
 
                     }
 
-                    if (friendGraph.areFriends(currentUser, user)) {
+                    if (!(friendGraph.areFriends(currentUser, user))) {
 
-                        areFriendsValidation = true;
+                        areFriendsValidation = false;
+
+                        break;
 
                     }
 
-                }
 
-                if (idValidation && areFriendsValidation) {
+                }
+                //System.out.println("idValidation: "+ idValidation + " areFriendsValidtaion: " + ar);
+
+                if (idValidation && (!areFriendsValidation)) {
 
                     currentUser.addFriend(userManager.searchUserById(friendId));
 
                     friendGraph.addFriend(currentUser.getId(), friendId);
+
+                    
 
                     System.out.println("Friend successfully added!\n");
 
@@ -292,7 +340,7 @@ public class SocialMedia {
                     System.out.println("\nGoing back to makeNewFriends Tab\n.\n.\n.Successful!\n");
                     makeNewFriends(scanner);
 
-                } else if (!areFriendsValidation) {
+                } else if (areFriendsValidation && idValidation) {
 
                     System.out.println("You already have this user as your friend!\n");
                     System.out.println("\nGoing back to makeNewFriends Tab\n.\n.\n.Successful!\n");
@@ -314,13 +362,24 @@ public class SocialMedia {
                 String interest = scanner.nextLine();
 
                 ArrayList<User> wantedFriendsList;
-                wantedFriendsList = interestManager.searchUsersByInterest(interest);
+                wantedFriendsList = interestManager.searchUsersByInterest(interest,friendGraph,currentUser);
 
                 System.out.println("These are the friends that have the desired interest.\n");
+                //System.out.println(wantedFriendsList.size());
+
+                if(wantedFriendsList.size() == 0){
+
+                    System.out.println("Nobody has that interest!");
+
+                    System.out.println("\nGoing back to makeNewFriends Tab\n.\n.\n.Successful!\n");
+
+                    makeNewFriends(scanner);
+
+                }
 
                 for (User user : wantedFriendsList) {
 
-                    user.viewFullProfile();
+                    System.out.println(user);
 
                 }
 
@@ -332,7 +391,7 @@ public class SocialMedia {
 
                 boolean idValidation = false;
 
-                boolean areFriendsValidation = false;
+                boolean areFriendsValidation = true;
 
                 for (User user : wantedFriendsList) {
 
@@ -342,15 +401,18 @@ public class SocialMedia {
 
                     }
 
-                    if (friendGraph.areFriends(currentUser, user)) {
+                    if (!(friendGraph.areFriends(currentUser, user))) {
 
-                        areFriendsValidation = true;
+                        areFriendsValidation = false;
+
+                        break;
 
                     }
 
+
                 }
 
-                if (idValidation && areFriendsValidation) {
+                if (idValidation && (!areFriendsValidation)) {
 
                     currentUser.addFriend(userManager.searchUserById(friendId));
 
@@ -366,7 +428,7 @@ public class SocialMedia {
                     System.out.println("\nGoing back to makeNewFriends Tab\n.\n.\n.Successful!\n");
                     makeNewFriends(scanner);
 
-                } else if (!areFriendsValidation) {
+                } else if (areFriendsValidation && idValidation) {
 
                     System.out.println("You already have this user as your friend!\n");
                     System.out.println("\nGoing back to makeNewFriends Tab\n.\n.\n.Successful!\n");
@@ -397,25 +459,42 @@ public class SocialMedia {
 
                     makeNewFriends(scanner);
 
+
                 }
+                
+               
 
                 ArrayList<User> wantedFriendsList;
                 wantedFriendsList = friendGraph.getRecommendations(currentUser, userManager, interestManager);
 
+                if(wantedFriendsList.size() == 0){
+
+                    System.out.println("No recommendations at this time!");
+
+                    System.out.println("\nGoing back to makeNewFriends Tab\n.\n.\n.Successful!\n");
+
+                    makeNewFriends(scanner);
+
+                }
+
                 // print the friends in list
-                for (int i = 0; i < wantedFriendsList.size(); i++) {
-                    wantedFriendsList.get(i).viewFullProfile();
+                for (User user : wantedFriendsList) {
+
+                    System.out.println(user.getProfileWithFriendCredit());
+                
+                    user.resetFriendCredit();
                 }
 
                 System.out.println("Type the id of the friend you want to add, -1 if none you want to add: \n");
 
                 int friendId = scanner.nextInt();
 
+                
                 scanner.nextLine();
 
                 boolean idValidation = false;
 
-                boolean areFriendsValidation = false;
+                boolean areFriendsValidation = true;
 
                 for (User user : wantedFriendsList) {
 
@@ -425,15 +504,18 @@ public class SocialMedia {
 
                     }
 
-                    if (friendGraph.areFriends(currentUser, user)) {
+                    if (!(friendGraph.areFriends(currentUser, user))) {
 
-                        areFriendsValidation = true;
+                        areFriendsValidation = false;
+
+                        break;
 
                     }
 
+
                 }
 
-                if (idValidation && areFriendsValidation) {
+                if (idValidation && (!areFriendsValidation)) {
 
                     currentUser.addFriend(userManager.searchUserById(friendId));
 
@@ -449,15 +531,9 @@ public class SocialMedia {
                     System.out.println("\nGoing back to makeNewFriends Tab\n.\n.\n.Successful!\n");
                     makeNewFriends(scanner);
 
-                } else if (!areFriendsValidation) {
-
-                    System.out.println("You already have this user as your friend!\n");
-                    System.out.println("\nGoing back to makeNewFriends Tab\n.\n.\n.Successful!\n");
-                    makeNewFriends(scanner);
-
                 } else {
 
-                    System.out.println("You entered incorrect id, please check again next time.");
+                    System.out.println("You already added him/her as your friend or he is not recommended at all!");
                     System.out.println("\nGoing back to makeNewFriends Tab\n.\n.\n.Successful!\n");
 
                     makeNewFriends(scanner);
@@ -466,6 +542,9 @@ public class SocialMedia {
 
             }
             case 4 -> {
+
+                System.out.println("\nGoing back to UserMenu\n.\n.\n.Successful!\n");
+
                 userMenu(scanner);
             }
             default -> System.out.println("Invalid choice. Returning to User Menu.");
@@ -483,4 +562,6 @@ public class SocialMedia {
         }
         System.out.println("Goodbye!");
     }
+
+    
 }

@@ -67,7 +67,7 @@ public class InterestManager {
      * @param interest The interest to search for.
      * @return A list of User objects who share the specified interest.
      */
-    public ArrayList<User> searchUsersByInterest(String interest) {
+    public ArrayList<User> searchUsersByInterest(String interest, FriendGraph friendGraph, User currentUser) {
     	interest = interest.toLowerCase();
     	Interest tempInterest = new Interest(0, interest);
     	Interest actualInterest = interestTable.get(tempInterest);
@@ -77,7 +77,18 @@ public class InterestManager {
     	BST<User> userBST = usersByInterest.get(actualInterest.getId());
     	ArrayList<User> usersList = new ArrayList<>();
     	userBST.inOrderTraversal(usersList);
-    	return usersList;
+
+        ArrayList<User> finalUsersList = new ArrayList<>();
+
+        for(User user : usersList){
+
+            if(!friendGraph.areFriends(user, currentUser)){
+
+                finalUsersList.add(user);
+
+            }
+        }
+    	return finalUsersList;
     }
 
     // prompt the user to enter all of their interests
