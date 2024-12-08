@@ -2,12 +2,7 @@
 Peyton Manning
 PeytonM18
 peytonm
-5
-14
-17
-4
-3
-2
+0
 Denver
 2
 football
@@ -16,10 +11,7 @@ basketball
 Tyreek Hill
 TyreekFastHill
 tyreekh
-3
-6
-1
-5
+0
 Miami
 3
 football
@@ -29,10 +21,7 @@ hiking
 Tom Brady
 BradyTheQB
 tomb
-3
-8
-1
-7
+0
 Chicago
 2
 fishing
@@ -41,11 +30,7 @@ basketball
 Patrick Mahomes
 Patty15Mahomes
 patrickm
-4
-10
-17
-1
-9
+0
 Kansas City
 3
 cooking
@@ -55,10 +40,7 @@ tennis
 Ray Lewis
 RavenLewis52
 rayl
-3
-11
-12
-2
+0
 Baltimore
 4
 football
@@ -69,11 +51,7 @@ hiking
 Aaron Rodgers
 GreenBayRodgers
 aaronr
-4
-13
-14
-17
-2
+0
 Houston
 3
 snowboarding
@@ -83,12 +61,7 @@ cats
 Travis Kelce
 TravisFootball
 travisk
-5
-13
-17
-15
-8
-3
+0
 Los Angeles
 5
 dogs
@@ -100,10 +73,7 @@ snowboarding
 Larry Fitzgerald
 LarryTheCardinal
 larryf
-3
-3
-7
-9
+0
 Phoenix
 2
 guitar
@@ -112,11 +82,7 @@ soccer
 Troy Polamalu
 TroyTheSteeler
 troyp
-4
-10
-17
-8
-4
+0
 Honolulu
 3
 basketball
@@ -126,12 +92,7 @@ fishing
 Drew Brees
 Drew9Brees
 drewb
-5
-16
-17
-4
-12
-9
+0
 New Orleans
 2
 cooking
@@ -140,12 +101,7 @@ dogs
 Drew Brees
 Brees9Drew
 drewb2
-5
-13
-16
-17
-15
-5
+0
 Atlanta
 3
 dogs
@@ -155,10 +111,7 @@ hiking
 Randy Moss
 Moss84
 randym
-3
-13
-10
-5
+0
 San Francisco
 3
 football
@@ -168,13 +121,7 @@ cooking
 Calvin Johnson
 CalvinTheLion
 calvinj
-6
-6
-11
-17
-16
-12
-7
+0
 Detroit
 2
 tennis
@@ -183,10 +130,7 @@ soccer
 Ed Reed
 EddyReedy
 edr
-3
-6
-15
-1
+0
 Seattle
 4
 football
@@ -197,11 +141,7 @@ fishing
 Joe Montana
 JoeyMontana
 joem
-4
-11
-14
-17
-7
+0
 Portland
 5
 football
@@ -213,10 +153,7 @@ snowboarding
 Eric Yuan
 AMTheShy
 Minx
-3
-13
-11
-10
+0
 Nanjing
 3
 football
@@ -226,16 +163,7 @@ gaming
 Eric Yuan
 AMtheshy
 min
-9
-6
-13
-11
-10
-15
-4
-1
-7
-9
+0
 nanjing
 2
 gaming
@@ -244,10 +172,78 @@ football
 Khhiem Vu
 khiemvu
 khiemv
-3
-10
-17
-16
+0
 Morgan Hill
 1
 basketball
+19
+Kyle Ton
+kyleton
+kylet
+0
+Chicago
+2
+basketball
+soccer
+20
+Eric Yu
+AM
+min
+0
+ji
+1
+football
+21
+Eric Yu
+AM
+min
+0
+ji
+1
+football
+22
+erie eireiri
+kasdfk
+askdfkdf
+0
+aslkdflj
+1
+fdf
+23
+eric yuan
+ericeruer
+kasdkf
+0
+kksdkf
+1
+isidfi
+24
+test test
+test
+test
+0
+test
+1
+test
+25
+Kai Nguyen
+kainguyen
+kain
+0
+Santa Clara
+1
+fffff
+26
+william li
+williamli
+williaml
+0
+asdf
+0
+27
+william lie
+williamlie
+williaml
+0
+william
+0

@@ -117,23 +117,27 @@ public class SocialMedia {
         String city = scanner.nextLine();
         ArrayList<Interest> InterestsArray;
         InterestsArray = interestManager.createInterestArray(scanner);
+        
+        if(firstName.isBlank() || lastName.isBlank() || username.isBlank() || password.isBlank() || city.isBlank()) {
+        	System.out.println("None of the entries should be empty! Try again");
+        	createAccount(scanner);
+        } else {
+        	currentUser = new User(userManager.getNumUsers() + 1, firstName, lastName, username, password, city,
+                    InterestsArray);
 
-        currentUser = new User(userManager.getNumUsers() + 1, firstName, lastName, username, password, city,
-                InterestsArray);
+            userManager.addUser(currentUser);
+            loginTable.addUser(currentUser);
 
-        userManager.addUser(currentUser);
-        loginTable.addUser(currentUser);
-
-        System.out.println("Account created successfully! You are now logged in.");
-        numCurrentUsers++;
-        isLoggedIn = true;
-        userMenu(scanner);
+            System.out.println("Account created successfully! You are now logged in.");
+            numCurrentUsers++;
+            isLoggedIn = true;
+            userMenu(scanner);
+        }
     }
 
     // Menu for logged-in users
     private static void userMenu(Scanner scanner) {
         
-
         while (isLoggedIn) {
             System.out.println("\nUser Menu:");
             System.out.println("1. View My Profile");
@@ -141,6 +145,7 @@ public class SocialMedia {
             System.out.println("3. Make New Friends");
             System.out.println("4. Logout");
             System.out.print("Enter your choice: ");
+            
             int choice = scanner.nextInt();
             scanner.nextLine();
 
@@ -175,12 +180,19 @@ public class SocialMedia {
         switch (choice) {
             case 1 -> {
             	//System.out.println("Viewing friends sorted by name: ");
-            	currentUser.viewFriendsAlphabetically();
-                //scanner.nextLine();
-
-                System.out.println("\nGoing Back to ViewFriends\n.\n.\n.\nSuccessful!\n");
-                viewFriends(scanner);
-                break;
+            	
+            	if(currentUser.getNumFriends() == 0) {
+            		System.out.println("You currently have no friends! Go add some.");
+            		viewFriends(scanner);
+            		
+            		break;
+            	} else {
+            		currentUser.viewFriendsAlphabetically();
+            		System.out.println("\nGoing Back to ViewFriends\n.\n.\n.\nSuccessful!\n");
+                    viewFriends(scanner);
+                    
+                    break;
+            	}
             }
             case 2 -> {
                 System.out.print("Enter friend's first name: ");
@@ -197,7 +209,8 @@ public class SocialMedia {
                     System.out.println("\nGoing Back to ViewFriends\n.\n.\n.\nSuccessful!\n");
 
                     viewFriends(scanner);
-
+                    
+                    break;
                 }
                 
                 //System.out.println(currentFriendList.size());
@@ -254,21 +267,20 @@ public class SocialMedia {
                         break;
 
                     }
-                
-                    case 3 -> {
-                        System.out.println("Invalid choice. Returning to User Menu.\n.\n.\n.\nSuccessful!");
-                        userMenu(scanner);
-                    }
 
-                    default -> {System.out.println("Invalid choice. Returning to User Menu.\n.\n.\n.\nSuccessful!");
-                    	userMenu(scanner);}
-                	}
-
-                    break;
+	                default -> {
+	                	System.out.println("Invalid choice. Returning to User Menu.\n.\n.\n.\nSuccessful!");
+	                	userMenu(scanner);
+	                }
+                }
+                break;
             }
+            
             case 3 ->{
                 System.out.println("\nGoing Back to UserMenu\n.\n.\n.\nSuccessful!\n");
-                userMenu(scanner);}
+                userMenu(scanner);
+                break;
+            }
             
             default -> System.out.println("Invalid choice. Returning to User Menu.");
         }
@@ -303,7 +315,8 @@ public class SocialMedia {
                     System.out.println("\nGoing back to makeNewFriends Tab\n.\n.\n.Successful!\n");
 
                     makeNewFriends(scanner);
-
+                    
+                    break;
                 }
 
                 for (User user : wantedFriendsList) {
@@ -355,17 +368,23 @@ public class SocialMedia {
 
                     System.out.println("\nGoing back to makeNewFriends Tab\n.\n.\n.Successful!\n");
                     makeNewFriends(scanner);
+                    
+                    break;
 
                 } else if (friendId == -1) {
 
                     System.out.println("\nGoing back to makeNewFriends Tab\n.\n.\n.Successful!\n");
                     makeNewFriends(scanner);
+                    
+                    break;
 
                 } else if (areFriendsValidation && idValidation) {
 
                     System.out.println("You already have this user as your friend!\n");
                     System.out.println("\nGoing back to makeNewFriends Tab\n.\n.\n.Successful!\n");
                     makeNewFriends(scanner);
+                    
+                    break;
 
                 } else {
 
@@ -375,9 +394,9 @@ public class SocialMedia {
 
                     makeNewFriends(scanner);
 
+                    break;
                 }
 
-                break;
 
             }
             case 2 -> {
@@ -397,7 +416,8 @@ public class SocialMedia {
                     System.out.println("\nGoing back to makeNewFriends Tab\n.\n.\n.Successful!\n");
 
                     makeNewFriends(scanner);
-
+                    
+                    break;
                 }
 
                 for (User user : wantedFriendsList) {
@@ -436,9 +456,6 @@ public class SocialMedia {
                     }
                 }
 
-                    
-                
-
                 System.out.println("idValidation: "+ idValidation + " areFriendsValidtaion: " + areFriendsValidation);
 
                 if (idValidation && (!areFriendsValidation)) {
@@ -451,17 +468,23 @@ public class SocialMedia {
 
                     System.out.println("\nGoing back to makeNewFriends Tab\n.\n.\n.Successful!\n");
                     makeNewFriends(scanner);
+                    
+                    break;
 
                 } else if (friendId == -1) {
 
                     System.out.println("\nGoing back to makeNewFriends Tab\n.\n.\n.Successful!\n");
                     makeNewFriends(scanner);
+                    
+                    break;
 
                 } else if (areFriendsValidation && idValidation) {
 
                     System.out.println("You already have this user as your friend!\n");
                     System.out.println("\nGoing back to makeNewFriends Tab\n.\n.\n.Successful!\n");
                     makeNewFriends(scanner);
+                    
+                    break;
 
                 } else {
 
@@ -470,10 +493,9 @@ public class SocialMedia {
                     System.out.println("\nGoing back to makeNewFriends Tab\n.\n.\n.Successful!\n");
 
                     makeNewFriends(scanner);
-
+                    
+                    break;
                 }
-
-                break;
 
             }
 
@@ -489,8 +511,8 @@ public class SocialMedia {
                     System.out.println("\nGoing back to makeNewFriends Tab\n.\n.\n.Successful!\n");
 
                     makeNewFriends(scanner);
-
-
+                    
+                    break;
                 }
                 
                
@@ -505,6 +527,8 @@ public class SocialMedia {
                     System.out.println("\nGoing back to makeNewFriends Tab\n.\n.\n.Successful!\n");
 
                     makeNewFriends(scanner);
+                    
+                    break;
 
                 }
 
@@ -557,11 +581,15 @@ public class SocialMedia {
 
                     System.out.println("\nGoing back to makeNewFriends Tab\n.\n.\n.Successful!\n");
                     makeNewFriends(scanner);
+                    
+                    break;
 
                 } else if (friendId == -1) {
 
                     System.out.println("\nGoing back to makeNewFriends Tab\n.\n.\n.Successful!\n");
                     makeNewFriends(scanner);
+                    
+                    break;
 
                 } else {
 
@@ -569,10 +597,10 @@ public class SocialMedia {
                     System.out.println("\nGoing back to makeNewFriends Tab\n.\n.\n.Successful!\n");
 
                     makeNewFriends(scanner);
+                    
+                    break;
 
                 }
-
-                break;
 
             }
             case 4 -> {
@@ -584,7 +612,13 @@ public class SocialMedia {
                 break;
 
             }
-            default -> System.out.println("Invalid choice. Returning to User Menu.");
+            default -> {
+            	System.out.println("Invalid choice. Returning to User Menu.");
+            	
+            	userMenu(scanner);
+            	
+            	break;
+            }
         }
 
     }

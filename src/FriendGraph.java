@@ -16,7 +16,7 @@ public class FriendGraph {
     private CreditComparator creditCmp = new CreditComparator();
     
     public FriendGraph() {
-    	friendGraph = new Graph(20);
+    	friendGraph = new Graph(100);
     }
     
     public FriendGraph(UserManager userManager, Integer numCurrentUsers) {
@@ -72,6 +72,12 @@ public class FriendGraph {
     	ArrayList<User> potentialFriendsList = new ArrayList<>(); // used to store potential friends (unranked)
         BST<User> potentialFriendsBST = new BST<>(); // used to order the potential friends based on credit system
         ArrayList<User> recommendations = new ArrayList<>(); // used to store actual recommendations (ranked)
+        
+        
+        // 
+        if(user == null) {
+        	return recommendations;
+        }
         
         friendGraph.BFS(user.getId()); // call BFS on current user to find relationships
         
