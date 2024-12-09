@@ -99,7 +99,7 @@ public class InterestManager {
 
    public ArrayList<Interest> createInterestArray(Scanner s) {
       ArrayList<Interest> userInterests = new ArrayList<>();
-      System.out.println("Enter your interest. Type 'finish' when finished");
+      System.out.println("Enter your interests. Type 'finish' when finished.");
       while(true) {
     	  System.out.print("Enter an interest: ");
     	  String interestName = s.nextLine();
@@ -120,7 +120,7 @@ public class InterestManager {
     	  if(!userInterests.contains(realInterest) ) {
     		  userInterests.add(realInterest);
     	  } else {
-    		  System.out.println("Interest already added");
+    		  System.out.println("Interest already added!");
     	  }
       }
       return userInterests;

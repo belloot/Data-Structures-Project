@@ -273,8 +273,7 @@ public class User {
      * Displays the user's friends in alphabetical order.
      */
     public void viewFriendsAlphabetically() {
-    	System.out.println("Viewing friends alphabetically:");
-    	System.out.println("ID of friend is included after their name");
+    	System.out.println("Viewing friends alphabetically:\n");
     	System.out.print(friendsByName.inOrderStringPrint());
     }
 
@@ -322,9 +321,9 @@ public class User {
     // print user's full profile
     public void viewFullProfile() {
     	//System.out.println("reached view profile");
-    	System.out.println(firstName + " " + lastName + " (" + id + ")" + "\n");
-    	System.out.println("Interests: \n");
-    	System.out.println(interests.numberedListString());
+    	System.out.println(firstName + " " + lastName + " (ID: " + id + ")" + "\n");
+    	System.out.println("Interests:");
+    	System.out.print(interests.numberedListString());
     	
     	if(friendsByName.getSize() == 0) {
     		System.out.println("You currently don't have any friends! Go add some");

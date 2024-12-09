@@ -341,7 +341,7 @@ public class LinkedList<T> {
         int index = 1;
         positionIterator();
         while(!offEnd()) {
-        	result.append("" + index + ". " + getIterator() + "\n");
+        	result.append("" + index + ". " + getIterator());
         	index++;
         	advanceIterator();
         }

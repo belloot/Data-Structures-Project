@@ -79,7 +79,7 @@ public class UserManager {
     
     // print out all the profiles of all Users in this list
     public void viewProfileOfFriendsInList(ArrayList<User> list) {
-    	System.out.println("Viewing these friends' profiles: ");
+    	System.out.println("Viewing these friends' profiles:\n");
     	for(int i = 0; i < list.size(); i++) {
     		list.get(i).viewFullProfile();
     	}
