@@ -338,7 +338,7 @@ public class User {
      */
     @Override
     public String toString() {
-    	return firstName + " " + lastName + " (" + id + ")" + "\n";
+    	return firstName + " " + lastName + " (ID: " + id + ")" + "\n";
     }
 
     public String getProfileWithFriendCredit(){

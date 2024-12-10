@@ -175,7 +175,7 @@ public class SocialMedia {
     private static void viewFriends(Scanner scanner) {
         System.out.println("\nView Friends:");
         System.out.println("1. View Friends Sorted by Name");
-        System.out.println("2. Search by Friend Name");
+        System.out.println("2. Search by Friend Name (option to remove friends in here)");
         System.out.println("3. Back to User Menu");
 
         System.out.print("Enter your choice: ");
@@ -312,6 +312,7 @@ public class SocialMedia {
                 ArrayList<User> wantedFriendsList;
                 wantedFriendsList = userManager.searchUsersByName(friendFirstName, friendLastName);
                 //System.out.println(wantedFriendsList.size());
+                System.out.println("\nDisplaying users with name: " + friendFirstName + " " + friendLastName + "\n");
 
                 if(wantedFriendsList.size() == 0){
 
