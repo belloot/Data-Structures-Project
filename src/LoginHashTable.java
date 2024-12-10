@@ -43,7 +43,7 @@ public class LoginHashTable {
     	user = new User();
     	return user; // never ever reached based on how we wrote the program
     }
-
+    
     /**
      * Adds a user to the login hash table.
      * 
