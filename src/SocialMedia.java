@@ -462,7 +462,7 @@ public class SocialMedia {
                     }
                 }
 
-                System.out.println("idValidation: "+ idValidation + " areFriendsValidtaion: " + areFriendsValidation);
+                //System.out.println("idValidation: "+ idValidation + " areFriendsValidtaion: " + areFriendsValidation);
 
                 if (idValidation && (!areFriendsValidation)) {
 
