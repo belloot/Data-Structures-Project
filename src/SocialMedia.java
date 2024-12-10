@@ -14,30 +14,6 @@ public class SocialMedia {
     public static boolean isRunning;
     public static boolean isLoggedIn;
 
-    // TESTING (Khiem 2:44 PM)
-    // TESTING (Khiem 2:52 PM)
-
-    // could have two hashTables here
-    // 1. hashTable that stores all users (could be stored in UserManager)
-    // 2. hashTable that stores all interests (could be stored in InterestManager)
-
-    /**
-     * STRATEGY TO READ IN USERS FROM INPUT FILE
-     * 1. When we reach a User, we add that user to the hash table using the hash
-     * method.
-     * The BST for this user will store friends with no other attributes except id.
-     * 2. When we finish reading from the file, our hash table will have all the
-     * users in it.
-     * 3. We loop through the hashTable, when we arrive at a user, we traverse
-     * through their
-     * friends BST. At each node in the BST, we get the id of that user, then access
-     * that friend
-     * through the hash table, then set the BST node to have the attributes of the
-     * friend we just accessed
-     * (what to do if duplicate values...?)`1vdvsv
-     * @throws FileNotFoundException 
-     */
-
     public static void main(String[] args) {
 
         // Initialize components
@@ -70,18 +46,18 @@ public class SocialMedia {
             System.out.println("2. Create a New Account");
             System.out.println("3. Quit");
             System.out.print("Enter your choice: ");
-            int choice = scanner.nextInt();
+            String choice = scanner.next();
             scanner.nextLine();
 
-            switch (choice) {
-                case 1 -> login(scanner);
-                case 2 -> createAccount(scanner);
-                case 3 -> {
+            switch (choice.trim()) {
+                case "1" -> login(scanner);
+                case "2" -> createAccount(scanner);
+                case "3" -> {
                     quit();
                     isRunning = false;
                     break;
                 }
-                default -> System.out.println("Invalid choice. Please try again.");
+                default -> System.out.println("\nInvalid choice. Please try again.\n");
             }
         }
     }
@@ -179,11 +155,11 @@ public class SocialMedia {
         System.out.println("3. Back to User Menu");
 
         System.out.print("Enter your choice: ");
-        int choice = scanner.nextInt();
+        String choice = scanner.next();
         scanner.nextLine();
 
-        switch (choice) {
-            case 1 -> {
+        switch (choice.trim()) {
+            case "1" -> {
             	//System.out.println("Viewing friends sorted by name: ");
             	
             	if(currentUser.getNumFriends() == 0) {
@@ -199,7 +175,7 @@ public class SocialMedia {
                     break;
             	}
             }
-            case 2 -> {
+            case "2" -> {
                 System.out.print("Enter friend's first name: ");
                 String friendFirstName = scanner.nextLine().trim();
                 System.out.print("Enter friend's Last name: ");
@@ -223,12 +199,12 @@ public class SocialMedia {
                 System.out.println("1. View profiles of friends with this name (may contain duplicates)");
                 System.out.println("2. Remove any friends with this name (will print out all friends with this name)");
                 System.out.print("Enter your choice: ");
-                int choice2 = scanner.nextInt();
+                String choice2 = scanner.next();
                 scanner.nextLine();
 
-                switch(choice2){
+                switch(choice2.trim()){
 
-                    case 1 -> {
+                    case "1" -> {
                         userManager.viewProfileOfFriendsInList(currentFriendList);
                       
                         viewFriends(scanner);
@@ -236,13 +212,13 @@ public class SocialMedia {
                         break;
                     }
 
-                    case 2 -> {
-                        System.out.println("From the Friends(May include duplicate names) below, choose one to remove:\n");
+                    case "2" -> {
+                        System.out.println("From the users below (may include duplicates), choose one to remove:\n");
 
                         // khiem handles this part(print all friends in friendlist) (DONE: one line below)
                         userManager.viewProfileOfFriendsInList(currentFriendList);
 
-                        System.out.println("Enter the id of the friend you want to remove:\n");
+                        System.out.println("Enter the ID of the friend you want to remove:\n");
 
                         int removeId = scanner.nextInt();
 
@@ -281,13 +257,13 @@ public class SocialMedia {
                 break;
             }
             
-            case 3 ->{
+            case "3" ->{
                 System.out.println("\nGoing Back to UserMenu\n.\n.\n.\nSuccessful!\n");
                 userMenu(scanner);
                 break;
             }
             
-            default -> System.out.println("Invalid choice. Returning to User Menu.");
+            default -> System.out.println("\nInvalid choice. Returning to User Menu.");
         }
     }
 
@@ -313,10 +289,15 @@ public class SocialMedia {
                 wantedFriendsList = userManager.searchUsersByName(friendFirstName, friendLastName);
                 //System.out.println(wantedFriendsList.size());
                 System.out.println("\nDisplaying users with name: " + friendFirstName + " " + friendLastName + "\n");
+                
+                // removes current user from the wanted friends list (if they are there)
+                if(wantedFriendsList.indexOf(currentUser) != -1) {
+                	wantedFriendsList.remove(currentUser);
+                }
 
                 if(wantedFriendsList.size() == 0){
 
-                    System.out.println("Nobody has that Name!");
+                    System.out.println("The wanted user is either already a friend or there is no one else with that name!");
 
                     System.out.println("\nGoing back to Make New Friends\n.\n.\n.Successful!\n");
 
@@ -326,12 +307,12 @@ public class SocialMedia {
                 }
 
                 for (User user : wantedFriendsList) {
-
-                    System.out.println(user);
-
+                	
+                	System.out.println(user);
+                	
                 }
 
-                System.out.print("From the list above, type the id of the friend you want to add, -1 if you want to add none of them: ");
+                System.out.print("From the list above, type the ID of the friend you want to add, -1 if you want to add none of them: ");
 
                 int friendId = scanner.nextInt();
 
@@ -414,10 +395,15 @@ public class SocialMedia {
 
                 System.out.println("\nThese are the users that have the desired interest:\n");
                 //System.out.println(wantedFriendsList.size());
+                
+             // removes current user from the wanted friends list (if they are there)
+                if(wantedFriendsList.indexOf(currentUser) != -1) {
+                	wantedFriendsList.remove(currentUser);
+                }
 
                 if(wantedFriendsList.size() == 0){
 
-                    System.out.println("\nNobody has that interest!");
+                    System.out.println("\nNo user has that interest, or you have already added the users with this interest as a friend!");
 
                     System.out.println("\nGoing back to makeNewFriends Tab\n.\n.\n.Successful!\n");
 
@@ -432,7 +418,7 @@ public class SocialMedia {
 
                 }
 
-                System.out.print("From the list above, type the id of the friend you want to add, -1 if you want to add none of them: ");
+                System.out.print("From the list above, type the ID of the friend you want to add, -1 if you want to add none of them: ");
 
                 int friendId = scanner.nextInt();
 
@@ -494,7 +480,7 @@ public class SocialMedia {
 
                 } else {
 
-                    System.out.println("You entered incorrect id, please check again next time.");
+                    System.out.println("\nYou entered an invalid choice, try again.");
 
                     System.out.println("\nGoing back to makeNewFriends Tab\n.\n.\n.Successful!\n");
 
@@ -546,7 +532,7 @@ public class SocialMedia {
                     user.resetFriendCredit();
                 }
 
-                System.out.println("Type the ID of the user you want to add, -1 if you don't want to add any of these users: \n");
+                System.out.println("From the list above, type the ID of the friend you want to add, -1 if you want to add none of them: ");
 
                 int friendId = scanner.nextInt();
 
@@ -599,7 +585,7 @@ public class SocialMedia {
 
                 } else {
 
-                    System.out.println("You already added him/her as your friend or he is not recommended at all!");
+                    System.out.println("You already added this user as a friend or this user was not displayed!");
                     System.out.println("\nGoing back to makeNewFriends Tab\n.\n.\n.Successful!\n");
 
                     makeNewFriends(scanner);
