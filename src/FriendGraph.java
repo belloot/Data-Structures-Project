@@ -111,9 +111,9 @@ public class FriendGraph {
         	int currentPotentialFriendId = currentPotentialFriend.getId();
         	int distanceOfPotentialFriend = friendGraph.getDistance(currentPotentialFriendId);
         	if(distanceOfPotentialFriend == 2) {
-        		currentPotentialFriend.incrementCredit(3);
+        		currentPotentialFriend.incrementCredit(10);
         	} else if (distanceOfPotentialFriend > 2 && distanceOfPotentialFriend <= 4) {
-        		currentPotentialFriend.incrementCredit(2);
+        		currentPotentialFriend.incrementCredit(5);
         	} else {
         		currentPotentialFriend.incrementCredit(1);
         	}
