@@ -296,11 +296,16 @@ public class SocialMedia {
                 	wantedFriendsList.remove(currentUser);
                 }
                 
+                ArrayList<User> peopleToRemove = new ArrayList<>();
                 // removes any current friends
                 for(User user : wantedFriendsList) {
                 	if(friendGraph.areFriends(currentUser, user)) {
-                		wantedFriendsList.remove(user);
+                		peopleToRemove.add(user);
                 	}
+                }
+                
+                for(User user : peopleToRemove) {
+                	wantedFriendsList.remove(user);
                 }
 
                 if(wantedFriendsList.size() == 0){
@@ -404,16 +409,21 @@ public class SocialMedia {
                 System.out.println("\nThese are the users that have the desired interest:\n");
                 //System.out.println(wantedFriendsList.size());
                 
-                // removes current user from the wanted friends list (if they are there)
+             // removes current user from the wanted friends list (if they are there)
                 if(wantedFriendsList.indexOf(currentUser) != -1) {
                 	wantedFriendsList.remove(currentUser);
                 }
                 
-             // removes any current friends
+                ArrayList<User> peopleToRemove = new ArrayList<>();
+                // removes any current friends
                 for(User user : wantedFriendsList) {
                 	if(friendGraph.areFriends(currentUser, user)) {
-                		wantedFriendsList.remove(user);
+                		peopleToRemove.add(user);
                 	}
+                }
+                
+                for(User user : peopleToRemove) {
+                	wantedFriendsList.remove(user);
                 }
 
                 if(wantedFriendsList.size() == 0){
@@ -532,11 +542,16 @@ public class SocialMedia {
                 	wantedFriendsList.remove(currentUser);
                 }
                 
-             // removes any current friends
+                ArrayList<User> peopleToRemove = new ArrayList<>();
+                // removes any current friends
                 for(User user : wantedFriendsList) {
                 	if(friendGraph.areFriends(currentUser, user)) {
-                		wantedFriendsList.remove(user);
+                		peopleToRemove.add(user);
                 	}
+                }
+                
+                for(User user : peopleToRemove) {
+                	wantedFriendsList.remove(user);
                 }
 
                 if(wantedFriendsList.size() == 0){
