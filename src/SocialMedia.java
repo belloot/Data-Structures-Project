@@ -290,9 +290,17 @@ public class SocialMedia {
                 //System.out.println(wantedFriendsList.size());
                 System.out.println("\nDisplaying users with name: " + friendFirstName + " " + friendLastName + "\n");
                 
+                
                 // removes current user from the wanted friends list (if they are there)
                 if(wantedFriendsList.indexOf(currentUser) != -1) {
                 	wantedFriendsList.remove(currentUser);
+                }
+                
+                // removes any current friends
+                for(User user : wantedFriendsList) {
+                	if(friendGraph.areFriends(currentUser, user)) {
+                		wantedFriendsList.remove(user);
+                	}
                 }
 
                 if(wantedFriendsList.size() == 0){
@@ -396,9 +404,16 @@ public class SocialMedia {
                 System.out.println("\nThese are the users that have the desired interest:\n");
                 //System.out.println(wantedFriendsList.size());
                 
-             // removes current user from the wanted friends list (if they are there)
+                // removes current user from the wanted friends list (if they are there)
                 if(wantedFriendsList.indexOf(currentUser) != -1) {
                 	wantedFriendsList.remove(currentUser);
+                }
+                
+             // removes any current friends
+                for(User user : wantedFriendsList) {
+                	if(friendGraph.areFriends(currentUser, user)) {
+                		wantedFriendsList.remove(user);
+                	}
                 }
 
                 if(wantedFriendsList.size() == 0){
@@ -511,6 +526,18 @@ public class SocialMedia {
 
                 ArrayList<User> wantedFriendsList;
                 wantedFriendsList = friendGraph.getRecommendations(currentUser, userManager, interestManager);
+                
+             // removes current user from the wanted friends list (if they are there)
+                if(wantedFriendsList.indexOf(currentUser) != -1) {
+                	wantedFriendsList.remove(currentUser);
+                }
+                
+             // removes any current friends
+                for(User user : wantedFriendsList) {
+                	if(friendGraph.areFriends(currentUser, user)) {
+                		wantedFriendsList.remove(user);
+                	}
+                }
 
                 if(wantedFriendsList.size() == 0){
 
